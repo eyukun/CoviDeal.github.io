@@ -5,7 +5,7 @@ Student Name: Ng Jun Zhi
 Student ID: B1802197
 **/		
 
-// Users
+// Users initialised values
 var users = {
 	manager: {
 		id: '1',
@@ -71,6 +71,7 @@ for (var user in users){
 	allUsers.push(users[user]);
 }
 
+// current user info
 var currentUser = {
 	id: undefined,
 	username: undefined,
@@ -82,11 +83,34 @@ var currentUser = {
 	centreID: undefined
 }
 
+// Centres initialised values
+var centres = {
+	kl: {
+		centreID: '1',
+		centreName: 'kl',
+		address: '123, Jalan KL, KL'
+	}
+}
+var centreID = 3;
+
+// Centres array
+var allCentres = [];
+
+// add in the centres
+for (var centre in centres){
+	allCentres.push(centres[centre]);
+}
+
+
+// function to determine which function going
 function common(){
 	let action = document.getElementById('action').value;
 	switch(action){
 		case 'login':
 			loginFormSubmitted();
+			break;
+		case 'registerTestCentre':
+			registerCentreFormSubmitted();
 			break;
 		default:
 			alert(action);
@@ -94,12 +118,13 @@ function common(){
 	}
 }
 
+// login form
 function loginFormSubmitted(){
 	event.preventDefault();
-	let loginFormData = captureLoginFormData();
+	let formData = captureLoginFormData();
 	let login = false;
-	for (var i = 0; i < allUsers.length; i++){
-		if (loginFormData['username'] == allUsers[i].username && loginFormData['password'] == allUsers[i].password){
+	for (let i = 0; i < allUsers.length; i++){
+		if (formData['username'] == allUsers[i].username && formData['password'] == allUsers[i].password){
 			currentUser['id'] = allUsers[i].id;
 			currentUser['username'] = allUsers[i].username;
 			currentUser['password'] = allUsers[i].password;
@@ -140,14 +165,123 @@ function loginFormSubmitted(){
 	}
 }
 
+// capture login form data
 function captureLoginFormData(){
-	let loginFormData = {};
-	loginFormData["username"] = document.getElementById("username").value;
-	loginFormData["password"] = document.getElementById("password").value;
-	return loginFormData;
+	let formData = {};
+	formData["username"] = document.getElementById("username").value;
+	formData["password"] = document.getElementById("password").value;
+	return formData;
 }
 
 
+
+/*
+// register test centre function
+function registerTestCentre(){
+
+	//get the data from registerTestCentre.php
+	//prevent database error due to user's input
+	$centreName = $_POST['centreName'];
+	$address = $_POST['address'];
+	$sql = "SELECT * FROM testcentre WHERE centreName='$centreName'";
+	$id = $_SESSION["id"];
+	$centre = db_find($sql);
+
+
+	// if have result for this test centre
+	if($centre != null)
+	{
+		// print messages in interface file
+		$error = '<div class="alert alert-danger alert-dismissible fade show">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Cannot add! ' . $centreName . ' (Test Centre) has already existed.</strong></div>';
+		$_SESSION['error'] = $error;
+		echo "<script type='text/javascript'> window.location = '/code/registerTestCentre.php'; </script>";
+	}
+	// new test centre
+	else{
+		// if have registered test centre for this manager
+		// this happen after a manager register successfully and wants to register one more
+		if ($_SESSION['centreID'] != null){
+			$error = '<div class="alert alert-danger alert-dismissible">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong> You are owning a test centre currently ! </strong></div>';
+				$_SESSION['error'] = $error;
+			echo "<script type='text/javascript'> window.location = '/code/RecordTester.php'; </script>";
+		}
+		else {
+			//add the test centre
+			$insert = "insert into testcentre(centreName, address, id) values ('$centreName', '$address', '$id');";
+			$centre = db_result($insert);
+			if ($centre == true){
+				$sql1 = "SELECT * FROM testcentre WHERE centreName='$centreName'";
+				$centre = db_find($sql1);
+				$centreID = $centre->centreID;
+				
+				// update manager's centre id
+				$sql1 = "UPDATE user SET centreID='$centreID' WHERE id='$id'";
+				$user = db_result($sql1);
+				if ($user != null)	{
+					$error = '<div class="alert alert-success alert-dismissible fade show">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>New test centre ('.$centreName.') has been added successfully!</strong></div>';
+					$_SESSION['error'] = $error;
+					$_SESSION['centreID'] = $centreID;
+					echo "<script type='text/javascript'> window.location = '/code/registerTestCentre.php'; </script>";
+				}
+			}
+			else {
+				$error = '<div class="alert alert-danger alert-dismissible fade show">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong> Test Centre ('.$centreName.') added unsuccessfully!</strong></div>';
+				$_SESSION['error'] = $error;
+				echo "<script type='text/javascript'> window.location = '/code/registerTestCentre.php'; </script>";
+			}
+		}
+	}
+}
+*/
+
+// register test centre form
+function registerCentreFormSubmitted(){
+	event.preventDefault();
+	let formData = captureRegisterCentreFormData();
+	let register = true;
+	for (let i = 0; i < allCentres.length; i++){
+		if (formData['centreName'] == allCentres[i].centreName){
+			register = false;
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allCentres[i].centreName + " (Test Centre) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+		}
+		break;
+	}
+	if (register == true){
+		
+	}
+	
+}
+
+function captureRegisterCentreFormData(){
+	let formData = {};
+	formData['centreName'] = document.getElementById('centreName').value;
+	formData['address'] = document.getElementById('address').value;
+	return formData;
+}
 
 // validation function for modal
 (function() {
@@ -168,8 +302,6 @@ window.addEventListener('load', function() {
 	});
 }, false);
 })();
-
-
 
 
 /**
