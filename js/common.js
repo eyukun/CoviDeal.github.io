@@ -112,6 +112,9 @@ function common(){
 		case 'registerTestCentre':
 			registerCentreFormSubmitted();
 			break;
+		case 'recordTester':
+			recordTester();
+			break;
 		default:
 			alert(action);
 			break;
@@ -241,6 +244,7 @@ function registerTestCentre(){
 	}
 }
 */
+
 
 // register test centre form
 function registerCentreFormSubmitted(){
