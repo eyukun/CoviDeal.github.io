@@ -89,6 +89,7 @@ var currentUser = {
 	centreID: 'null'
 }
 
+
 // create centre
 var createCentre = {
 	centreID: 'null',
@@ -106,6 +107,7 @@ var centres = {
 		id: 1
 	}
 }
+
 
 // Centres array
 var allCentres = [];
@@ -126,8 +128,11 @@ function common(){
 		case 'registerTestCentre':
 			registerCentreFormSubmitted();
 			break;
+		case 'recordTester':
+			recordTester();
+			break;
+
 		default:
-			alert(action);
 			break;
 	}
 }
@@ -190,16 +195,18 @@ function loginFormSubmitted(){
 // capture login form data
 function captureLoginFormData(){
 	let formData = {};
+
 	// get data from login form
 	formData["username"] = document.getElementById("username").value;
 	formData["password"] = document.getElementById("password").value;
 	return formData;
-}
 
+}
 
 // register test centre form
 function registerCentreFormSubmitted(){
 	event.preventDefault();
+
 	
 	// get data from register centre form
 	let formData = captureRegisterCentreFormData();
@@ -229,6 +236,7 @@ function registerCentreFormSubmitted(){
 			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
 			divNode.appendChild(aNode);
 			divNode.appendChild(strongNode);
+
 			divNode.setAttribute("id", "errorMsg");
 			
 			document.getElementById("error").appendChild(divNode);
@@ -285,18 +293,20 @@ function registerCentreFormSubmitted(){
 		btn1.setAttribute("class", "btn btn-dark");
 		btn1.setAttribute("data-target", "#");
 		btn1.setAttribute("title", "You cannot register more than one test centre !");
-
 	}
 	
 }
 
 function captureRegisterCentreFormData(){
+
 	// get data from register centre form
+
 	let formData = {};
 	formData['centreName'] = document.getElementById('centreName').value;
 	formData['address'] = document.getElementById('address').value;
 	return formData;
 }
+
 
 // hide the modal once the register centre form submitted
 $(document).ready(function() {
@@ -304,6 +314,7 @@ $(document).ready(function() {
 		$("#registerCentreModal").modal("hide");
 	});
 });
+
 
 // validation function for modal
 (function() {
