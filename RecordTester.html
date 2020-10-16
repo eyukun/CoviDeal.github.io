@@ -37,16 +37,19 @@ Student ID: B1802197
 			 <li class="nav-item pill-1">
 				<a class="navbar-brand" style="font-family:cursive; color: white;">CoviDeal</a>
 			 </li>
-         <li class="nav-item pill-2" >
-             <a >Register Centre</a>
-         </li>
+         <li class="nav-item pill-2">
+			 <a class="nav-link text-secondary" href="#"
+			 title="You are owning a test centre currently!")
+			 >Register Centre</a>
+		 </li>
 		
-         <li class="nav-item pill-3">
-             <a>Record Tester</a>
-         </li>
+		 <li class="nav-item pill-3">
+			 <a class="nav-link active" href="RecordTester.html">Record Tester</a>
+		 </li>
+		 
 		 <li class="nav-item pill-4">
-             <a>Manage Test Kit Stock</a>
-         </li>
+			 <a class="nav-link" href="ManageTestKit.html">Manage Test Kit Stock</a>
+		 </li>
  	   </ul>
  			
 		<ul class="navbar-nav mr-auto">
@@ -140,37 +143,6 @@ Student ID: B1802197
         </div>
       </div>
 	</footer>
-	<script>
-	if (currentUser["centreID"] == null){
-		// navigation validation
-		let nav = document.getElementsByTagName("a");
-
-		nav[1].setAttribute("class", "nav-link text-secondary");
-		nav[1].setAttribute("href", "RegisterTestCentre.html");
-
-		nav[2].setAttribute("class", "nav-link active");
-		nav[2].setAttribute("href", "#");
-		nav[2].setAttribute("title", "Please register a test centre first !");
-
-		nav[3].setAttribute("class", "nav-link text-secondary");
-		nav[3].setAttribute("href", "#");
-		nav[3].setAttribute("title", "Please register a test centre first !");
-	}
-	else {
-		// navigation validation
-		let nav = document.getElementsByTagName("a");
-		nav[1].setAttribute("class", "nav-link text-secondary");
-		nav[1].setAttribute("href", "#");
-		nav[1].setAttribute("title", "You are owning a test centre currently !");
-
-		nav[2].setAttribute("class", "nav-link");
-		nav[2].setAttribute("href", "RecordTester.html");
-
-		nav[3].setAttribute("class", "nav-link");
-		nav[3].setAttribute("href", "ManageTestKit.html");
-	}
-	
-	</script>
 	
 </body>
 </html>
