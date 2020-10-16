@@ -48,7 +48,7 @@ var users = {
 		position: 'patient',
 		patientType: 'Close Contact',
 		symptoms: 'cough',
-		centreID: 'null'
+		centreID: '1'
 	},
 	
 	officer: {
@@ -89,17 +89,7 @@ var currentUser = {
 	centreID: 'null'
 }
 
-<<<<<<< Updated upstream
-// Centres initialised values
-var centres = {
-	kl: {
-		centreID: '1',
-		centreName: 'kl',
-		address: '123, Jalan KL, KL'
-	}
-}
-var centreID = 3;
-=======
+
 // create centre
 var createCentre = {
 	centreID: 'null',
@@ -117,7 +107,7 @@ var centres = {
 		id: 1
 	}
 }
->>>>>>> Stashed changes
+
 
 // Centres array
 var allCentres = [];
@@ -138,14 +128,11 @@ function common(){
 		case 'registerTestCentre':
 			registerCentreFormSubmitted();
 			break;
-<<<<<<< Updated upstream
 		case 'recordTester':
 			recordTester();
 			break;
-=======
->>>>>>> Stashed changes
+
 		default:
-			alert(action);
 			break;
 	}
 }
@@ -153,12 +140,6 @@ function common(){
 // login form
 function loginFormSubmitted(){
 	event.preventDefault();
-<<<<<<< Updated upstream
-	let formData = captureLoginFormData();
-	let login = false;
-	for (let i = 0; i < allUsers.length; i++){
-		if (formData['username'] == allUsers[i].username && formData['password'] == allUsers[i].password){
-=======
 	
 	// get data from login form
 	let formData = captureLoginFormData();
@@ -168,7 +149,6 @@ function loginFormSubmitted(){
 	for (let i = 0; i < allUsers.length; i++){
 		if (formData['username'] == allUsers[i].username && formData['password'] == allUsers[i].password){
 			// set the data to current user
->>>>>>> Stashed changes
 			currentUser['id'] = allUsers[i].id;
 			currentUser['username'] = allUsers[i].username;
 			currentUser['password'] = allUsers[i].password;
@@ -215,98 +195,83 @@ function loginFormSubmitted(){
 // capture login form data
 function captureLoginFormData(){
 	let formData = {};
-<<<<<<< Updated upstream
-	formData["username"] = document.getElementById("username").value;
-	formData["password"] = document.getElementById("password").value;
-	return formData;
-}
 
-
-
-/*
-// register test centre function
-function registerTestCentre(){
-
-	//get the data from registerTestCentre.php
-	//prevent database error due to user's input
-	$centreName = $_POST['centreName'];
-	$address = $_POST['address'];
-	$sql = "SELECT * FROM testcentre WHERE centreName='$centreName'";
-	$id = $_SESSION["id"];
-	$centre = db_find($sql);
-
-
-	// if have result for this test centre
-	if($centre != null)
-	{
-		// print messages in interface file
-		$error = '<div class="alert alert-danger alert-dismissible fade show">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		<strong>Cannot add! ' . $centreName . ' (Test Centre) has already existed.</strong></div>';
-		$_SESSION['error'] = $error;
-		echo "<script type='text/javascript'> window.location = '/code/registerTestCentre.php'; </script>";
-	}
-	// new test centre
-	else{
-		// if have registered test centre for this manager
-		// this happen after a manager register successfully and wants to register one more
-		if ($_SESSION['centreID'] != null){
-			$error = '<div class="alert alert-danger alert-dismissible">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong> You are owning a test centre currently ! </strong></div>';
-				$_SESSION['error'] = $error;
-			echo "<script type='text/javascript'> window.location = '/code/RecordTester.php'; </script>";
-		}
-		else {
-			//add the test centre
-			$insert = "insert into testcentre(centreName, address, id) values ('$centreName', '$address', '$id');";
-			$centre = db_result($insert);
-			if ($centre == true){
-				$sql1 = "SELECT * FROM testcentre WHERE centreName='$centreName'";
-				$centre = db_find($sql1);
-				$centreID = $centre->centreID;
-				
-				// update manager's centre id
-				$sql1 = "UPDATE user SET centreID='$centreID' WHERE id='$id'";
-				$user = db_result($sql1);
-				if ($user != null)	{
-					$error = '<div class="alert alert-success alert-dismissible fade show">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>New test centre ('.$centreName.') has been added successfully!</strong></div>';
-					$_SESSION['error'] = $error;
-					$_SESSION['centreID'] = $centreID;
-					echo "<script type='text/javascript'> window.location = '/code/registerTestCentre.php'; </script>";
-				}
-			}
-			else {
-				$error = '<div class="alert alert-danger alert-dismissible fade show">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong> Test Centre ('.$centreName.') added unsuccessfully!</strong></div>';
-				$_SESSION['error'] = $error;
-				echo "<script type='text/javascript'> window.location = '/code/registerTestCentre.php'; </script>";
-			}
-		}
-	}
-=======
 	// get data from login form
 	formData["username"] = document.getElementById("username").value;
 	formData["password"] = document.getElementById("password").value;
 	return formData;
->>>>>>> Stashed changes
+
 }
+<<<<<<< HEAD
 */
+//record Tester
+function recordTester()
+{
+	event.preventDefault();
+	//get value and store inro form data
+	let formData={};
+	formData['username']=document.getElementById('username').value;
+	formData['password']=document.getElementById('password').value;
+	formData['name']=document.getElementById('name').value;
+	let record=true;
+	//check is there same username in list
+	for(let i=0;i<allUsers.length;i++)
+	{
+		//username found on user list
+		if(formData['username']==allUsers[i].username)
+		{
+			record=false;
+			//set error message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+			
+		}break;
+	}
+	//user name not found on user list,record new user
+	if (record==true)
+	{
+		//set error message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "success");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+	}
+}
+=======
 
-
+>>>>>>> 331f1e04ac38ea558421d716c25a09cee64cb941
 // register test centre form
 function registerCentreFormSubmitted(){
 	event.preventDefault();
-<<<<<<< Updated upstream
-	let formData = captureRegisterCentreFormData();
-	let register = true;
-	for (let i = 0; i < allCentres.length; i++){
-		if (formData['centreName'] == allCentres[i].centreName){
-			register = false;
-=======
+
 	
 	// get data from register centre form
 	let formData = captureRegisterCentreFormData();
@@ -321,7 +286,6 @@ function registerCentreFormSubmitted(){
 			register = false; 
 			
 			// append the failure message
->>>>>>> Stashed changes
 			let aNode = document.createElement("a");
 			aNode.setAttribute("class", "close");
 			aNode.setAttribute("data-dismiss", "alert");
@@ -337,19 +301,14 @@ function registerCentreFormSubmitted(){
 			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
 			divNode.appendChild(aNode);
 			divNode.appendChild(strongNode);
-<<<<<<< Updated upstream
-=======
+
 			divNode.setAttribute("id", "errorMsg");
->>>>>>> Stashed changes
 			
 			document.getElementById("error").appendChild(divNode);
 		}
 		break;
 	}
 	if (register == true){
-<<<<<<< Updated upstream
-		
-=======
 		// create centre and push into allCentres
 		createCentre = {
 			centreID: currentCentreID++,
@@ -399,24 +358,20 @@ function registerCentreFormSubmitted(){
 		btn1.setAttribute("class", "btn btn-dark");
 		btn1.setAttribute("data-target", "#");
 		btn1.setAttribute("title", "You cannot register more than one test centre !");
-
->>>>>>> Stashed changes
 	}
 	
 }
 
 function captureRegisterCentreFormData(){
-<<<<<<< Updated upstream
-=======
+
 	// get data from register centre form
->>>>>>> Stashed changes
+
 	let formData = {};
 	formData['centreName'] = document.getElementById('centreName').value;
 	formData['address'] = document.getElementById('address').value;
 	return formData;
 }
-<<<<<<< Updated upstream
-=======
+
 
 // hide the modal once the register centre form submitted
 $(document).ready(function() {
@@ -424,7 +379,7 @@ $(document).ready(function() {
 		$("#registerCentreModal").modal("hide");
 	});
 });
->>>>>>> Stashed changes
+
 
 // validation function for modal
 (function() {
