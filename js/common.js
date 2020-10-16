@@ -48,7 +48,7 @@ var users = {
 		position: 'patient',
 		patientType: 'Close Contact',
 		symptoms: 'cough',
-		centreID: 'null'
+		centreID: '1'
 	},
 	
 	officer: {
@@ -244,8 +244,67 @@ function registerTestCentre(){
 	}
 }
 */
-
-
+//record Tester
+function recordTester()
+{
+	event.preventDefault();
+	//get value and store inro form data
+	let formData={};
+	formData['username']=document.getElementById('username').value;
+	formData['password']=document.getElementById('password').value;
+	formData['name']=document.getElementById('name').value;
+	let record=true;
+	//check is there same username in list
+	for(let i=0;i<allUsers.length;i++)
+	{
+		//username found on user list
+		if(formData['username']==allUsers[i].username)
+		{
+			record=false;
+			//set error message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+			
+		}break;
+	}
+	//user name not found on user list,record new user
+	if (record==true)
+	{
+		//set error message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "success");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+	}
+}
 // register test centre form
 function registerCentreFormSubmitted(){
 	event.preventDefault();
