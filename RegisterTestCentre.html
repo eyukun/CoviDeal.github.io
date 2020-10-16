@@ -19,7 +19,10 @@ Student ID: B1900083
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<<<<<<< Updated upstream
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+=======
+>>>>>>> Stashed changes
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 	
@@ -67,6 +70,7 @@ Student ID: B1900083
 			  <p class="lead">
 			  <!-- register button !-->
 				<button id="btn1" data-toggle="modal">Register Test Centre</button>
+<<<<<<< Updated upstream
 				<script>
 					if (currentUser['centreID'] == null){
 						let btn1 = document.getElementById('btn1');
@@ -79,6 +83,8 @@ Student ID: B1900083
 						btn1.setAttribute("title", "You cannot register more than one test centre !");
 					}
 				</script>
+=======
+>>>>>>> Stashed changes
 			  </p>
 			</div>
 			<hr>
@@ -153,8 +159,13 @@ Student ID: B1900083
       </div>
 	</footer>
 	<script>
+<<<<<<< Updated upstream
 	if (currentUser["centreID"] == null){
 		// navigation validation
+=======
+		// navigation validation
+		// set the other navigation to disabled before register a test centre
+>>>>>>> Stashed changes
 		let nav = document.getElementsByTagName("a");
 
 		nav[1].setAttribute("class", "nav-link active");
@@ -167,6 +178,7 @@ Student ID: B1900083
 		nav[3].setAttribute("class", "nav-link text-secondary");
 		nav[3].setAttribute("href", "#");
 		nav[3].setAttribute("title", "Please register a test centre first !");
+<<<<<<< Updated upstream
 	}
 	else {
 		// navigation validation
@@ -183,6 +195,16 @@ Student ID: B1900083
 	}
 	
 	</script>
+=======
+		
+		let btn1 = document.getElementById('btn1');
+		btn1.setAttribute("class", "btn btn-success");
+		btn1.setAttribute("data-target", "#registerCentreModal");
+			
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+>>>>>>> Stashed changes
 </body>
 </html>
 <!--
