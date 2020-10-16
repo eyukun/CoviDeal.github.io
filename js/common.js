@@ -130,7 +130,6 @@ function common(){
 			registerCentreFormSubmitted();
 			break;
 		case 'recordTester':
-			
 			recordTester();
 			break;
 
@@ -204,8 +203,6 @@ function captureLoginFormData(){
 	return formData;
 
 }
-<<<<<<< HEAD
-*/
 //record Tester
 function recordTester()
 {
@@ -268,9 +265,7 @@ function recordTester()
 		document.getElementById("error").appendChild(divNode);
 	}
 }
-=======
 
->>>>>>> 331f1e04ac38ea558421d716c25a09cee64cb941
 // register test centre form
 function registerCentreFormSubmitted(){
 	event.preventDefault();
@@ -335,6 +330,7 @@ function registerCentreFormSubmitted(){
 		let strongNode = document.createElement("strong");
 		let textNode = document.createTextNode("New test centre (" + createCentre['centreName'] + ") has been added successfully!");
 		strongNode.appendChild(textNode);
+
 		
 		let divNode = document.createElement("div");
 		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
@@ -343,6 +339,7 @@ function registerCentreFormSubmitted(){
 		divNode.setAttribute("id", "errorMsg");
 		
 		document.getElementById("error").appendChild(divNode);
+		
 		
 		// update the navigation details
 		let nav = document.getElementsByTagName("a");
