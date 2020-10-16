@@ -245,24 +245,25 @@ function recordTester()
 	//user name not found on user list,record new user
 	if (record==true)
 	{
-		//set error message
-			let aNode = document.createElement("a");
-			aNode.setAttribute("class", "close");
-			aNode.setAttribute("data-dismiss", "success");
-			aNode.setAttribute("aria-label", "close");
-			aNode.setAttribute("href", "#");
-			aNode.innerHTML = "&times;";
-			
-			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
-			strongNode.appendChild(textNode);
-						
-			let divNode = document.createElement("div");
-			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
-			divNode.appendChild(aNode);
-			divNode.appendChild(strongNode);
-			
-			document.getElementById("error").appendChild(divNode);
+		// append the success message
+		let aNode = document.createElement("a");
+		aNode.setAttribute("class", "close");
+		aNode.setAttribute("data-dismiss", "alert");
+		aNode.setAttribute("aria-label", "close");
+		aNode.setAttribute("href", "#");
+		aNode.innerHTML = "&times;";
+		
+		let strongNode = document.createElement("strong");
+		let textNode = document.createTextNode("New Tester(" + formDate['username'] + ") has been added successfully!");
+		strongNode.appendChild(textNode);
+		
+		let divNode = document.createElement("div");
+		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+		divNode.appendChild(aNode);
+		divNode.appendChild(strongNode);
+		divNode.setAttribute("id", "errorMsg");
+		
+		document.getElementById("error").appendChild(divNode);
 	}
 }
 =======

@@ -141,8 +141,9 @@ Student ID: B1802197
       </div>
 	</footer>
 	<script>
-	if (currentUser["centreID"] == null){
+
 		// navigation validation
+		// set the other navigation to disabled before register a test centre
 		let nav = document.getElementsByTagName("a");
 
 		nav[1].setAttribute("class", "nav-link text-secondary");
@@ -155,22 +156,10 @@ Student ID: B1802197
 		nav[3].setAttribute("class", "nav-link text-secondary");
 		nav[3].setAttribute("href", "#");
 		nav[3].setAttribute("title", "Please register a test centre first !");
-	}
-	else {
-		// navigation validation
-		let nav = document.getElementsByTagName("a");
-		nav[1].setAttribute("class", "nav-link text-secondary");
-		nav[1].setAttribute("href", "#");
-		nav[1].setAttribute("title", "You are owning a test centre currently !");
-
-		nav[2].setAttribute("class", "nav-link");
-		nav[2].setAttribute("href", "RecordTester.html");
-
-		nav[3].setAttribute("class", "nav-link");
-		nav[3].setAttribute("href", "ManageTestKit.html");
-	}
-	
+		
+			
 	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	
 </body>
 </html>
