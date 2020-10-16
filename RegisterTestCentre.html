@@ -19,7 +19,6 @@ Student ID: B1900083
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 	
@@ -67,18 +66,6 @@ Student ID: B1900083
 			  <p class="lead">
 			  <!-- register button !-->
 				<button id="btn1" data-toggle="modal">Register Test Centre</button>
-				<script>
-					if (currentUser['centreID'] == null){
-						let btn1 = document.getElementById('btn1');
-						btn1.setAttribute("class", "btn btn-success");
-						btn1.setAttribute("data-target", "#registerCentreModal");
-					}
-					else {
-						btn1.setAttribute("class", "btn btn-dark");
-						btn1.setAttribute("data-target", "#");
-						btn1.setAttribute("title", "You cannot register more than one test centre !");
-					}
-				</script>
 			  </p>
 			</div>
 			<hr>
@@ -153,8 +140,9 @@ Student ID: B1900083
       </div>
 	</footer>
 	<script>
-	if (currentUser["centreID"] == null){
+
 		// navigation validation
+		// set the other navigation to disabled before register a test centre
 		let nav = document.getElementsByTagName("a");
 
 		nav[1].setAttribute("class", "nav-link active");
@@ -167,22 +155,15 @@ Student ID: B1900083
 		nav[3].setAttribute("class", "nav-link text-secondary");
 		nav[3].setAttribute("href", "#");
 		nav[3].setAttribute("title", "Please register a test centre first !");
-	}
-	else {
-		// navigation validation
-		let nav = document.getElementsByTagName("a");
-		nav[1].setAttribute("class", "nav-link text-secondary");
-		nav[1].setAttribute("href", "#");
-		nav[1].setAttribute("title", "You are owning a test centre currently !");
-
-		nav[2].setAttribute("class", "nav-link");
-		nav[2].setAttribute("href", "RecordTester.html");
-
-		nav[3].setAttribute("class", "nav-link");
-		nav[3].setAttribute("href", "ManageTestKit.html");
-	}
-	
+		
+		let btn1 = document.getElementById('btn1');
+		btn1.setAttribute("class", "btn btn-success");
+		btn1.setAttribute("data-target", "#registerCentreModal");
+			
 	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+
 </body>
 </html>
 <!--
