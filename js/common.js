@@ -239,7 +239,7 @@ function recordTester()
 			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
 			divNode.appendChild(aNode);
 			divNode.appendChild(strongNode);
-			
+			//append error message
 			document.getElementById("error").appendChild(divNode);
 			
 		}break;
@@ -247,7 +247,7 @@ function recordTester()
 	//user name not found on user list,record new user
 	if (record==true)
 	{
-		// append the success message
+		// set the success message
 		let aNode = document.createElement("a");
 		aNode.setAttribute("class", "close");
 		aNode.setAttribute("data-dismiss", "alert");
@@ -264,7 +264,7 @@ function recordTester()
 		divNode.appendChild(aNode);
 		divNode.appendChild(strongNode);
 		divNode.setAttribute("id", "errorMsg");
-		
+		// append the success message
 		document.getElementById("error").appendChild(divNode);
 	}
 }
