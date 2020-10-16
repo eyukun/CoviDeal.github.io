@@ -121,6 +121,7 @@ for (var centre in centres){
 // function to determine which function going
 function common(){
 	let action = document.getElementById('action').value;
+	
 	switch(action){
 		case 'login':
 			loginFormSubmitted();
@@ -202,8 +203,6 @@ function captureLoginFormData(){
 	return formData;
 
 }
-<<<<<<< HEAD
-*/
 //record Tester
 function recordTester()
 {
@@ -245,29 +244,28 @@ function recordTester()
 	//user name not found on user list,record new user
 	if (record==true)
 	{
-		//set error message
-			let aNode = document.createElement("a");
-			aNode.setAttribute("class", "close");
-			aNode.setAttribute("data-dismiss", "success");
-			aNode.setAttribute("aria-label", "close");
-			aNode.setAttribute("href", "#");
-			aNode.innerHTML = "&times;";
-			
-			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
-			strongNode.appendChild(textNode);
-						
-			let divNode = document.createElement("div");
-			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
-			divNode.appendChild(aNode);
-			divNode.appendChild(strongNode);
-			
-			document.getElementById("error").appendChild(divNode);
+		// append the success message
+		let aNode = document.createElement("a");
+		aNode.setAttribute("class", "close");
+		aNode.setAttribute("data-dismiss", "alert");
+		aNode.setAttribute("aria-label", "close");
+		aNode.setAttribute("href", "#");
+		aNode.innerHTML = "&times;";
+		
+		let strongNode = document.createElement("strong");
+		let textNode = document.createTextNode("New Tester(" + formDate['username'] + ") has been added successfully!");
+		strongNode.appendChild(textNode);
+		
+		let divNode = document.createElement("div");
+		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+		divNode.appendChild(aNode);
+		divNode.appendChild(strongNode);
+		divNode.setAttribute("id", "errorMsg");
+		
+		document.getElementById("error").appendChild(divNode);
 	}
 }
-=======
 
->>>>>>> 331f1e04ac38ea558421d716c25a09cee64cb941
 // register test centre form
 function registerCentreFormSubmitted(){
 	event.preventDefault();
@@ -332,6 +330,7 @@ function registerCentreFormSubmitted(){
 		let strongNode = document.createElement("strong");
 		let textNode = document.createTextNode("New test centre (" + createCentre['centreName'] + ") has been added successfully!");
 		strongNode.appendChild(textNode);
+
 		
 		let divNode = document.createElement("div");
 		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
@@ -340,6 +339,7 @@ function registerCentreFormSubmitted(){
 		divNode.setAttribute("id", "errorMsg");
 		
 		document.getElementById("error").appendChild(divNode);
+		
 		
 		// update the navigation details
 		let nav = document.getElementsByTagName("a");
