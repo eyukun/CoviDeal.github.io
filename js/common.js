@@ -51,8 +51,19 @@ var users = {
 		centreID: '1'
 	},
 	
-	officer: {
+	patient1: {
 		id: 5,
+		username: 'jeff',
+		password: 'jeff123',
+		name: 'jeff',
+		position: 'patient',
+		patientType: 'Returnee',
+		symptoms: 'fever',
+		centreID: '2'
+	},
+	
+	officer: {
+		id: 6,
 		username: 'officer',
 		password: 'officer123',
 		name: 'officer',
@@ -65,7 +76,7 @@ var users = {
 
 // current id
 var currentCentreID = 2;
-var currentUserID = 6;
+var currentUserID = 7;
 
 
 
@@ -209,6 +220,9 @@ function recordTester()
 	event.preventDefault();
 	//get value and store inro form data
 	let formData={};
+	if (document.getElementById("errorMsg") != null){
+		document.getElementById("errorMsg").remove();
+	}
 	formData['username']=document.getElementById('username').value;
 	formData['password']=document.getElementById('password').value;
 	formData['name']=document.getElementById('name').value;
@@ -229,40 +243,65 @@ function recordTester()
 			aNode.innerHTML = "&times;";
 			
 			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) Has Already Existed.");
 			strongNode.appendChild(textNode);
 						
 			let divNode = document.createElement("div");
 			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
 			divNode.appendChild(aNode);
 			divNode.appendChild(strongNode);
+			divNode.setAttribute("id", "errorMsg");
 			//append error message
 			document.getElementById("error").appendChild(divNode);
+			//text set to empty
+			document.getElementById('username').value='';
+			document.getElementById('password').value='';
+			document.getElementById('name').value='';
+			break;
 			
-		}break;
+		}
 	}
+	if(record==true){
 	//user name not found on user list,record new user
-	if (record==true)
-	{
+		// create user and push into allUser
+		newUser= {
+			id: currentUserID++,
+			username: formData['username'],
+			password:formData['password'],
+			name:formData['name'],
+			position:'tester',
+			patientType: 'null',
+			symptoms: 'null',
+			centreID: currentUser['centreID'],
+		}
+		allUsers.push(newUser);
+		
+		// set centreID to currentUser
+		currentUser['centreID'] = createCentre['centreID'];
 		// set the success message
-		let aNode = document.createElement("a");
-		aNode.setAttribute("class", "close");
-		aNode.setAttribute("data-dismiss", "alert");
-		aNode.setAttribute("aria-label", "close");
-		aNode.setAttribute("href", "#");
-		aNode.innerHTML = "&times;";
-		
-		let strongNode = document.createElement("strong");
-		let textNode = document.createTextNode("New Tester(" + formDate['username'] + ") has been added successfully!");
-		strongNode.appendChild(textNode);
-		
-		let divNode = document.createElement("div");
-		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
-		divNode.appendChild(aNode);
-		divNode.appendChild(strongNode);
-		divNode.setAttribute("id", "errorMsg");
-		// append the success message
-		document.getElementById("error").appendChild(divNode);
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("New Tester "+formData['username']+" (Username) Successfully Added.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			divNode.setAttribute("id", "errorMsg");
+			//append error message
+			document.getElementById("error").appendChild(divNode);
+			//text set to empty
+			document.getElementById('username').value='';
+			document.getElementById('password').value='';
+			document.getElementById('name').value='';
+			
 	}
 }
 
