@@ -121,6 +121,7 @@ for (var centre in centres){
 // function to determine which function going
 function common(){
 	let action = document.getElementById('action').value;
+	
 	switch(action){
 		case 'login':
 			loginFormSubmitted();
@@ -129,6 +130,7 @@ function common(){
 			registerCentreFormSubmitted();
 			break;
 		case 'recordTester':
+			
 			recordTester();
 			break;
 
