@@ -7,8 +7,9 @@ Student ID: B1802197
 
 // current id
 var currentCentreID = 3;
-var currentUserID = 7;
+var currentUserID = 10;
 var currentKitID = 6;
+var currentTestID=1;
 
 // Users initialised values
 var users = {
@@ -17,6 +18,7 @@ var users = {
 		username: 'admin',
 		password: 'admin123',
 		name: 'admin',
+		nation:'null',
 		position: 'manager',
 		patientType: 'null',
 		symptoms: 'null',
@@ -28,6 +30,7 @@ var users = {
 		username: 'adminadmin',
 		password: 'adminadmin123',
 		name: 'adminadmin',
+		nation:'null',
 		position: 'manager',
 		patientType: 'null',
 		symptoms: 'null',
@@ -39,6 +42,7 @@ var users = {
 		username: 'adminadminadmin',
 		password: 'adminadminadmin123',
 		name: 'adminadminadmin',
+		nation:'null',
 		position: 'manager',
 		patientType: 'null',
 		symptoms: 'null',
@@ -50,6 +54,7 @@ var users = {
 		username: 'tester',
 		password: 'tester123',
 		name: 'tester',
+		nation:'null',
 		position: 'tester',
 		patientType: 'null',
 		symptoms: 'null',
@@ -58,9 +63,10 @@ var users = {
 
 	patient: {
 		id: 5,
-		username: 'patient',
-		password: 'patient123',
-		name: 'patient',
+		username: 'jeff',
+		password: 'jeff1234',
+		name: 'jeff',
+		nation:'local',
 		position: 'patient',
 		patientType: 'Close Contact',
 		symptoms: 'cough',
@@ -72,11 +78,45 @@ var users = {
 		username: 'officer',
 		password: 'officer123',
 		name: 'officer',
+		nation:'null',
 		position: 'officer',
 		patientType: 'null',
 		symptoms: 'null',
 		centreID: 1		
-	}	
+	},
+	patient1: {
+		id: 7,
+		username: 'kobe',
+		password: 'kobe1234',
+		name: 'kobe',
+		nation:'local',
+		position: 'patient',
+		patientType: 'Close Contact',
+		symptoms: 'cough',
+		centreID: 'null'
+	},
+	patient2: {
+		id: 8,
+		username: 'james',
+		password: 'james1234',
+		name: 'james',
+		nation:'International',
+		position: 'patient',
+		patientType: 'Returnee',
+		symptoms: 'fever',
+		centreID: 'null'
+	},
+	patient3: {
+		id: 9,
+		username: 'mike',
+		password: 'mike1234',
+		name: 'mike',
+		nation:'International',
+		position: 'patient',
+		patientType: 'Infected',
+		symptoms: 'fever',
+		centreID: 'null'
+	},
 }
 
 // Users array
@@ -183,6 +223,9 @@ for (var testkit in testkits){
 	allTestKits.push(testkits[testkit]);
 }
 
+//Test array
+var allTest=[];
+
 // function to determine which function going
 function common(action){
 	switch(action){
@@ -198,10 +241,16 @@ function common(action){
 		case 'registerTestKit':
 			registerTestKit();
 			break;
+		case 'registerPatient':
+			registerPatient();
+			break;
 		default:
 			break;
 	}
 }
+
+
+
 
 // login form
 function login(){
@@ -260,68 +309,6 @@ function login(){
 	}
 }
 
-
-//record Tester
-function recordTester()
-{
-	event.preventDefault();
-	//get value and store inro form data
-	let formData={};
-	formData['username']=document.getElementById('username').value;
-	formData['password']=document.getElementById('password').value;
-	formData['name']=document.getElementById('name').value;
-	let record=true;
-	//check is there same username in list
-	for(let i=0;i<allUsers.length;i++)
-	{
-		//username found on user list
-		if(formData['username']==allUsers[i].username)
-		{
-			record=false;
-			//set error message
-			let aNode = document.createElement("a");
-			aNode.setAttribute("class", "close");
-			aNode.setAttribute("data-dismiss", "alert");
-			aNode.setAttribute("aria-label", "close");
-			aNode.setAttribute("href", "#");
-			aNode.innerHTML = "&times;";
-			
-			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
-			strongNode.appendChild(textNode);
-						
-			let divNode = document.createElement("div");
-			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
-			divNode.appendChild(aNode);
-			divNode.appendChild(strongNode);
-			
-			document.getElementById("error").appendChild(divNode);
-			break;
-		}
-	}
-	//user name not found on user list,record new user
-	if (record==true)
-	{
-		//set error message
-			let aNode = document.createElement("a");
-			aNode.setAttribute("class", "close");
-			aNode.setAttribute("data-dismiss", "success");
-			aNode.setAttribute("aria-label", "close");
-			aNode.setAttribute("href", "#");
-			aNode.innerHTML = "&times;";
-			
-			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
-			strongNode.appendChild(textNode);
-						
-			let divNode = document.createElement("div");
-			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
-			divNode.appendChild(aNode);
-			divNode.appendChild(strongNode);
-			
-			document.getElementById("error").appendChild(divNode);
-	}
-}
 //record Tester
 function recordTester()
 {
@@ -737,6 +724,342 @@ function registerTestKit(){
 }
 
 
+// register a patient and create a new test
+function registerPatient(){
+	event.preventDefault();
+	
+	// get data from register patient form
+	let formData = {};
+	formData["username"] = document.getElementById("username").value;
+	formData["password"] = document.getElementById("password").value;
+	formData["name"] = document.getElementById("name").value;
+	formData["nation"] = document.getElementById("nation").value;
+	formData["patientType"] = document.getElementById("patientType").value;
+	formData["symptoms"] = document.getElementById("symptoms").value;
+	if (parseInt(document.getElementById("kitID").value) != null){
+		formData["kitID"] = parseInt(document.getElementById("kitID").value);
+	}
+	let register = true;
+	let check=false;
+	// preset the centreID
+	currentUser['centreID'] = 1;
+	
+	// remove the message created before
+	if (document.getElementById("errorMsg") != null){
+		document.getElementById("errorMsg").remove();
+	}
+	
+	for (let i = 0; i < allUsers.length; i++){
+		if (allUsers[i].username === formData["username"]){
+			register = false;
+			
+			// append the failure message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			divNode.setAttribute("id", "errorMsg");
+			document.getElementById("error").appendChild(divNode);
+		}
+	}
+	for(let i=0;i<allTestKits.length;i++)
+	{
+		if(allTestKits[i].kitID==formData["kitID"])
+		{
+			check=true;
+		}
+	}
+	
+	if (register == true&&check==true){
+		
+			// create patient and push into allTestKits
+			createUser = {
+			id: currentUserID++,
+			username: formData["username"],
+			password: formData["password"],
+			name: formData["name"],
+			nation:formData["nation"],
+			position: formData["position"],
+			patientType: formData["patientType"],
+			symptoms: formData["symptoms"],
+			centreID: 1		
+			}
+			allUsers.push(createUser);
+			
+			var d=new Date();
+			var newtest = {
+				testID:currentTestID++,
+				testDate:d,
+				result:'pending',
+				resultDate:'pending',
+				status:'pending',
+				id:createUser.id,
+				kitID:formData['kitID'],
+			}
+			allTest.push(newtest);
+		
+			// insert the data into table
+			let tabObj = document.getElementById('patientTable');
+			let tab = tabObj.getElementsByTagName("tbody")[0];
+			let row = tab.insertRow(tab.length);
+			let idCell = row.insertCell(0);
+			idCell.innerHTML = createUser.id;
+			let usernameCell = row.insertCell(1);
+			usernameCell.innerHTML = createUser.username;
+			let nameCell = row.insertCell(2);
+			nameCell.innerHTML =  createUser.availableStock;
+			let nationCell = row.insertCell(3);
+			nationCell.innerHTML =  createUser.nation;
+			let patientTypeCell = row.insertCell(4);
+			patientTypeCell.innerHTML =  createUser.patientType;
+			let symptomsCell = row.insertCell(5);
+			symptomsCell.innerHTML =  createUser.symptoms;
+			// update patient button
+			let updateBtnCell = row.insertCell(6);
+			updateBtnCell.innerHTML = '<button type="button" id="update" value="update" data-toggle="modal"' +
+				'data-target="#updatePatientModal' + createUser.id + '"  class="btn btn-primary"> Update </button>';
+							
+			<!-- Update Patient Modal !--> 
+			let formEle = document.createElement('form');
+			formEle.setAttribute('id', 'updatePatientForm' +  createUser.id );
+							
+			formEle.innerHTML = '<div class="modal fade" id="updatePatientModal' + createUser.id  + '" tabindex="-1" role="dialog">' +
+				'<div class="modal-dialog modal-dialog-centered" role="document">' +
+				'<div class="modal-content">' +
+				'<div class="modal-header">' +
+				'<h5 class="modal-title" id="exampleModalLongTitle">Update Test Kit Stock</h5>' +
+					'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+						'<span aria-hidden="true">&times;</span>' +
+					'</button>' +
+				'</div>' +
+				'<div class="modal-body">' +
+					'<div class="form-group row">' +
+						'<label for="id" class="col-sm-6 col-lg-4 col-form-label"> id </label>' +
+							'<div class="col-sm-12 col-lg-8">' +
+															'<input type="text" class="form-control" id="updateID' + createUser.id  + '" name="id" value="' +  createUser.id  + '" readonly ><br>' +
+														'</div>' +
+													
+														'<label for="username" class="col-sm-6 col-lg-4 col-form-label"> Username </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<input type="text" class="form-control" id="updateUsername' + createUser.username + '" name="userame" value="' +  createUser.username + '" readonly><br>' +
+														'</div>' +
+													
+														'<label for="patientType" class="col-sm-6 col-lg-4 col-form-label"> Patient Type </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<select name="patientType" id="patientType'+createUser.id +'" class="form-control">'+
+																'<option value="Returnee">Returnee</option>'+
+																'<option value="Quarantine">Quarantine</option>'+
+																'<option value="Close Contact">Close Contact</option>'+
+																'<option value="Infected">Infected</option>'+
+																'<option value="Suspected">Suspected</option>'+
+															'</select><br>'+
+														'</div>' +
+														
+														'<label for="symptoms" class="col-sm-6 col-lg-4 col-form-label"> Symptoms </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<input type="text"  class="form-control" name="symptoms" id="symptoms'+createUser.id +'" required><br>' +
+														'</div>' +
+														
+														'<label for="kitID" class="col-sm-6 col-lg-4 col-form-label"> KITID </label>' +
+															'<div class="col-sm-12 col-lg-8">' +
+															'<input type="number" min="1" pattern="^[1-9][0-9]*$ class="form-control" name="kitID" id="kitID'+createUser.id +'" required>' +
+														'</div>' +
+													'</div>' +
+												'</div>' +
+											
+												'<div class="modal-footer">' +
+													'<input name="action_name" id="action" value="updatePatient" hidden>' +
+													'<input type="submit" class="btn btn-primary" name="submit" value="Update">' +
+												'</div>' +
+											'</div>' +
+										'</div>' +
+									'</div>';
+								
+								// update function
+								formEle.onsubmit = 
+								function (){
+									event.preventDefault();
+									
+									// get the income stock of the selected test kit
+									let formData = {};
+									formData["patientType"] =document.getElementById("patientType" + allUsers[i].id).value;
+									formData["symptoms"] = document.getElementById("symptoms" + allUsers[i].id).value;
+									formData["updateID"] = document.getElementById("updateID" + allUsers[i].id).value;
+									if (parseInt(document.getElementById("kitID").value) != null){
+										formData["kitID"] = parseInt(document.getElementById("kitID"+allUsers[i].id).value);
+									}
+									let update = false;
+									
+									// remove the message created before
+									if (document.getElementById("errorMsg") != null){
+										document.getElementById("errorMsg").remove();
+									}
+									
+									for (let i = 0; i < allTestKits.length; i++){
+										if(allTestKits[i].kitID==formData["kitID"])
+										{
+											for (let i = 0; i < allUsers.length; i++){
+											if(allUsers[i].id==formData["updateID"])
+												{
+												update = true;
+											allUsers[i].patientType=formData["patientType"];
+											allUsers[i].symptoms=formData["symptoms"];
+											
+											// update stock
+											for (let i = 0; i < allTestKits.length; i++){
+												if(allTestKits[i].kitID==formData["kitID"])
+												{
+													allTestKits[i].availableStock--;
+												}
+											}
+											
+											// create new test and push to all test
+											var d=new Date();
+											var newtest = {
+												testID:currentTestID++,
+												testDate:d,
+												result:'pending',
+												resultDate:'pending',
+												status:'pending',
+												id:currentUser['id'],
+												kitID:formData['kitID'],
+											}
+											allTest.push(newtest);
+											// update table
+											idCell.innerHTML = allUsers[i].id;
+											usernameCell.innerHTML = allUsers[i].usename;
+											nameCell.innerHTML = allUsers[i].name;
+											nationCell.innerHTML = allUsers[i].nation;
+											patientTypeCell.innerHTML = allUsers[i].patientType;
+											symptomsCell.innerHTML = allUsers[i].symptoms;
+											// append the success message
+											let aNode = document.createElement("a");
+											aNode.setAttribute("class", "close");
+											aNode.setAttribute("data-dismiss", "alert");
+											aNode.setAttribute("aria-label", "close");
+											aNode.setAttribute("href", "#");
+											aNode.innerHTML = "&times;";
+											
+											let strongNode = document.createElement("strong");
+											let textNode = document.createTextNode("Update Successfully ! Username(" + allUsers[i].username + ") and Test has been updated successfully!");
+											currentTestID++;
+											strongNode.appendChild(textNode);
+											
+											let divNode = document.createElement("div");
+											divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+											divNode.appendChild(aNode);
+											divNode.appendChild(strongNode);
+											divNode.setAttribute("id", "errorMsg");
+											
+											document.getElementById("error").appendChild(divNode);
+											
+												}
+											}
+											
+									}
+									}
+									
+									
+									// KitID Not found
+									if (update == false){
+										
+										// append the failure message
+										let aNode = document.createElement("a");
+										aNode.setAttribute("class", "close");
+										aNode.setAttribute("data-dismiss", "alert");
+										aNode.setAttribute("aria-label", "close");
+										aNode.setAttribute("href", "#");
+										aNode.innerHTML = "&times;";
+										
+										let strongNode = document.createElement("strong");
+										let textNode = document.createTextNode("Update Failure ! " + formData["kitID"] + " (KIT ID) is not found.");
+										strongNode.appendChild(textNode);
+													
+										let divNode = document.createElement("div");
+										divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+										divNode.appendChild(aNode);
+										divNode.appendChild(strongNode);
+
+										divNode.setAttribute("id", "errorMsg");
+										
+										document.getElementById("error").appendChild(divNode);
+										
+									}
+									
+								}
+							
+			document.body.appendChild(formEle);
+			
+			// hide the modal once the form submitted
+			$(document).ready(function() {									
+				 $('#updatePatientForm' + createUser['id']).submit(function() {
+					$("#updatePatientModal" + createUser['id']).modal("hide");
+				});
+			});
+						
+							
+					  
+					  
+		// append the success message
+		let aNode = document.createElement("a");
+		aNode.setAttribute("class", "close");
+		aNode.setAttribute("data-dismiss", "alert");
+		aNode.setAttribute("aria-label", "close");
+		aNode.setAttribute("href", "#");
+		aNode.innerHTML = "&times;";
+		
+		let strongNode = document.createElement("strong");
+		let textNode = document.createTextNode("New Patient Username(" + createUser['username'] + ") and New Test TestID("+currentTestID+") has been added successfully!");
+		strongNode.appendChild(textNode);
+		
+		let divNode = document.createElement("div");
+		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+		divNode.appendChild(aNode);
+		divNode.appendChild(strongNode);
+		divNode.setAttribute("id", "errorMsg");
+		
+		document.getElementById("error").appendChild(divNode);
+		
+	
+		
+	}
+	if(check==false)
+		{
+			// append the failure message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! "+formData["kitID"]+"(KitID) Not Found.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			divNode.setAttribute("id", "errorMsg");
+			document.getElementById("error").appendChild(divNode);
+		}
+	
+}
+
+
+
 
 // hide the modal once the form submitted
 $(document).ready(function() {
@@ -746,7 +1069,13 @@ $(document).ready(function() {
 	 $('#registerTestKitForm').submit(function() {
 		$("#registerTestKitModal").modal("hide");
 	});
+	$('#registerPatientForm').submit(function() {
+		$("#registerPatientModal").modal("hide");
+	});
 });
+
+
+
 
 
 // validation function for modal

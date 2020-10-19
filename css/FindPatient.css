@@ -21,9 +21,9 @@ Student ID: B1802197
 }
 
 .table {
-	width: 53.5%;
+	width: 66%;
 	overflow-y: scroll;
-	height: 30%;
+	height: 300px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
