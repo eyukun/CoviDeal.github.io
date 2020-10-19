@@ -108,7 +108,8 @@ var createCentre = {
 	id: 'null'
 }
 
-var createTetKit = {
+// create test kit
+var createTestKit = {
 	kitID: 'null',
 	testName: 'null',
 	availableStock: 'null',
@@ -322,96 +323,6 @@ function recordTester()
 			document.getElementById("error").appendChild(divNode);
 	}
 }
-//record Tester
-function recordTester()
-{
-	event.preventDefault();
-	//get value and store inro form data
-	let formData={};
-	if (document.getElementById("errorMsg") != null){
-		document.getElementById("errorMsg").remove();
-	}
-	formData['username']=document.getElementById('username').value;
-	formData['password']=document.getElementById('password').value;
-	formData['name']=document.getElementById('name').value;
-	let record=true;
-	//check is there same username in list
-	for(let i=0;i<allUsers.length;i++)
-	{
-		//username found on user list
-		if(formData['username']==allUsers[i].username)
-		{
-			record=false;
-			//set error message
-			let aNode = document.createElement("a");
-			aNode.setAttribute("class", "close");
-			aNode.setAttribute("data-dismiss", "alert");
-			aNode.setAttribute("aria-label", "close");
-			aNode.setAttribute("href", "#");
-			aNode.innerHTML = "&times;";
-			
-			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) Has Already Existed.");
-			strongNode.appendChild(textNode);
-						
-			let divNode = document.createElement("div");
-			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
-			divNode.appendChild(aNode);
-			divNode.appendChild(strongNode);
-			divNode.setAttribute("id", "errorMsg");
-			//append error message
-			document.getElementById("error").appendChild(divNode);
-			//text set to empty
-			document.getElementById('username').value='';
-			document.getElementById('password').value='';
-			document.getElementById('name').value='';
-			break;
-			
-		}
-	}
-	if(record==true){
-	//user name not found on user list,record new user
-		// create user and push into allUser
-		newUser= {
-			id: currentUserID++,
-			username: formData['username'],
-			password:formData['password'],
-			name:formData['name'],
-			position:'tester',
-			patientType: 'null',
-			symptoms: 'null',
-			centreID: currentUser['centreID'],
-		}
-		allUsers.push(newUser);
-		
-		// set centreID to currentUser
-		currentUser['centreID'] = createCentre['centreID'];
-		// set the success message
-			let aNode = document.createElement("a");
-			aNode.setAttribute("class", "close");
-			aNode.setAttribute("data-dismiss", "alert");
-			aNode.setAttribute("aria-label", "close");
-			aNode.setAttribute("href", "#");
-			aNode.innerHTML = "&times;";
-			
-			let strongNode = document.createElement("strong");
-			let textNode = document.createTextNode("New Tester "+formData['username']+" (Username) Successfully Added.");
-			strongNode.appendChild(textNode);
-						
-			let divNode = document.createElement("div");
-			divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
-			divNode.appendChild(aNode);
-			divNode.appendChild(strongNode);
-			divNode.setAttribute("id", "errorMsg");
-			//append error message
-			document.getElementById("error").appendChild(divNode);
-			//text set to empty
-			document.getElementById('username').value='';
-			document.getElementById('password').value='';
-			document.getElementById('name').value='';
-			
-	}
-}
 
 // register a test centre
 function registerCentre(){
@@ -479,7 +390,6 @@ function registerCentre(){
 		let strongNode = document.createElement("strong");
 		let textNode = document.createTextNode("New test centre (" + createCentre['centreName'] + ") has been added successfully!");
 		strongNode.appendChild(textNode);
-
 		
 		let divNode = document.createElement("div");
 		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
@@ -488,7 +398,6 @@ function registerCentre(){
 		divNode.setAttribute("id", "errorMsg");
 		
 		document.getElementById("error").appendChild(divNode);
-		
 		
 		// update the navigation details
 		let nav = document.getElementsByTagName("a");
@@ -636,10 +545,11 @@ function registerTestKit(){
 				
 				// get the income stock of the selected test kit
 				let formData = {};
-				formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
 				formData["updateTestName"] = document.getElementById("updateTestName" + createTestKit['kitID']).value;
 				formData["updateKitID"] = document.getElementById("updateKitID" + createTestKit['kitID']).value;
-				console.log(formData);
+				if (parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value) != null){
+					formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
+				}
 				let update = false;
 				
 				// remove the message created before
