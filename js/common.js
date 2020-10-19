@@ -5,21 +5,37 @@ Student Name: Ng Jun Zhi
 Student ID: B1802197
 **/		
 
+// current id
+var currentCentreID = 3;
+var currentUserID = 7;
+var currentKitID = 6;
+
 // Users initialised values
 var users = {
-		manager: {
-			id: 1,
-			username: 'admin',
-			password: 'admin123',
-			name: 'admin',
-			position: 'manager',
-			patientType: 'null',
-			symptoms: 'null',
-			centreID: 1
-		},
-
+	manager: {
+		id: 1,
+		username: 'admin',
+		password: 'admin123',
+		name: 'admin',
+		position: 'manager',
+		patientType: 'null',
+		symptoms: 'null',
+		centreID: 1
+	},
+	
 	manager1: {
 		id: 2,
+		username: 'adminadmin',
+		password: 'adminadmin123',
+		name: 'adminadmin',
+		position: 'manager',
+		patientType: 'null',
+		symptoms: 'null',
+		centreID: 2		
+	},
+
+	manager2: {
+		id: 3,
 		username: 'adminadminadmin',
 		password: 'adminadminadmin123',
 		name: 'adminadminadmin',
@@ -30,7 +46,7 @@ var users = {
 	},
 
 	tester: {
-		id: 3,
+		id: 4,
 		username: 'tester',
 		password: 'tester123',
 		name: 'tester',
@@ -41,25 +57,14 @@ var users = {
 	},
 
 	patient: {
-		id: 4,
+		id: 5,
 		username: 'patient',
 		password: 'patient123',
 		name: 'patient',
 		position: 'patient',
 		patientType: 'Close Contact',
 		symptoms: 'cough',
-		centreID: '1'
-	},
-	
-	patient1: {
-		id: 5,
-		username: 'jeff',
-		password: 'jeff123',
-		name: 'jeff',
-		position: 'patient',
-		patientType: 'Returnee',
-		symptoms: 'fever',
-		centreID: '2'
+		centreID: 'null'
 	},
 	
 	officer: {
@@ -73,12 +78,6 @@ var users = {
 		centreID: 1		
 	}	
 }
-
-// current id
-var currentCentreID = 2;
-var currentUserID = 7;
-
-
 
 // Users array
 var allUsers = [];
@@ -109,6 +108,13 @@ var createCentre = {
 	id: 'null'
 }
 
+var createTetKit = {
+	kitID: 'null',
+	testName: 'null',
+	availableStock: 'null',
+	centreID: 'null'
+}
+
 // Centres initialised values
 var centres = {
 	kl: {
@@ -116,6 +122,13 @@ var centres = {
 		centreName: 'kl',
 		address: '123, Jalan KL, KL',
 		id: 1
+	},
+	
+	pj: {
+		centreID: 2,
+		centreName: 'kl',
+		address: '123, Jalan KL, KL',
+		id: 2
 	}
 }
 
@@ -128,33 +141,76 @@ for (var centre in centres){
 	allCentres.push(centres[centre]);
 }
 
+// Test kits initialised values
+var testkits = {
+	covid: {
+		kitID: 1,
+		testName: "covid",
+		availableStock: 30,
+		centreID: 1
+	},
+	fever: {
+		kitID: 2,
+		testName: "dyspnea",
+		availableStock: 20,
+		centreID: 1
+	},
+	cough: {
+		kitID: 3,
+		testName: "cough",
+		availableStock: 40,
+		centreID: 1
+	},
+	covid1: {
+		kitID: 4,
+		testName: "covid",
+		availableStock: 30,
+		centreID: 2
+	},
+	fever1: {
+		kitID: 5,
+		testName: "fever",
+		availableStock: 30,
+		centreID: 2
+	}
+}
+
+// Test kit array
+var allTestKits = [];
+
+// add in the testKits
+for (var testkit in testkits){
+	allTestKits.push(testkits[testkit]);
+}
 
 // function to determine which function going
-function common(){
-	let action = document.getElementById('action').value;
-	
+function common(action){
 	switch(action){
 		case 'login':
-			loginFormSubmitted();
+			login();
 			break;
 		case 'registerTestCentre':
-			registerCentreFormSubmitted();
+			registerCentre();
 			break;
 		case 'recordTester':
 			recordTester();
 			break;
-
+		case 'registerTestKit':
+			registerTestKit();
+			break;
 		default:
 			break;
 	}
 }
 
 // login form
-function loginFormSubmitted(){
+function login(){
 	event.preventDefault();
 	
 	// get data from login form
-	let formData = captureLoginFormData();
+	let formData = {};
+	formData["username"] = document.getElementById("username").value;
+	formData["password"] = document.getElementById("password").value;
 	let login = false;
 	
 	// verify the username and password
@@ -204,15 +260,67 @@ function loginFormSubmitted(){
 	}
 }
 
-// capture login form data
-function captureLoginFormData(){
-	let formData = {};
 
-	// get data from login form
-	formData["username"] = document.getElementById("username").value;
-	formData["password"] = document.getElementById("password").value;
-	return formData;
-
+//record Tester
+function recordTester()
+{
+	event.preventDefault();
+	//get value and store inro form data
+	let formData={};
+	formData['username']=document.getElementById('username').value;
+	formData['password']=document.getElementById('password').value;
+	formData['name']=document.getElementById('name').value;
+	let record=true;
+	//check is there same username in list
+	for(let i=0;i<allUsers.length;i++)
+	{
+		//username found on user list
+		if(formData['username']==allUsers[i].username)
+		{
+			record=false;
+			//set error message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+			break;
+		}
+	}
+	//user name not found on user list,record new user
+	if (record==true)
+	{
+		//set error message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "success");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allUsers[i].username + " (Username) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+			
+			document.getElementById("error").appendChild(divNode);
+	}
 }
 //record Tester
 function recordTester()
@@ -305,13 +413,15 @@ function recordTester()
 	}
 }
 
-// register test centre form
-function registerCentreFormSubmitted(){
+// register a test centre
+function registerCentre(){
 	event.preventDefault();
 
 	
 	// get data from register centre form
-	let formData = captureRegisterCentreFormData();
+	let formData = {};
+	formData['centreName'] = document.getElementById('centreName').value;
+	formData['address'] = document.getElementById('address').value;
 	let register = true;
 	
 	// remove the message created before
@@ -342,8 +452,8 @@ function registerCentreFormSubmitted(){
 			divNode.setAttribute("id", "errorMsg");
 			
 			document.getElementById("error").appendChild(divNode);
+			break;
 		}
-		break;
 	}
 	if (register == true){
 		// create centre and push into allCentres
@@ -401,21 +511,240 @@ function registerCentreFormSubmitted(){
 	
 }
 
-function captureRegisterCentreFormData(){
-
-	// get data from register centre form
-
+// register a test kit
+function registerTestKit(){
+	event.preventDefault();
+	
+	// get data from register test kit form
 	let formData = {};
-	formData['centreName'] = document.getElementById('centreName').value;
-	formData['address'] = document.getElementById('address').value;
-	return formData;
+	formData["testName"] = document.getElementById("testName").value;
+	formData["availableStock"] = parseInt(document.getElementById("availableStock").value);
+	let register = true;
+	
+	// preset the centreID
+	currentUser['centreID'] = 1;
+	
+	// remove the message created before
+	if (document.getElementById("errorMsg") != null){
+		document.getElementById("errorMsg").remove();
+	}
+	
+	for (let i = 0; i < allTestKits.length; i++){
+		if (allTestKits[i].testName === formData["testName"] && allTestKits[i].centreID === currentUser['centreID']){
+			register = false;
+			
+			// append the failure message
+			let aNode = document.createElement("a");
+			aNode.setAttribute("class", "close");
+			aNode.setAttribute("data-dismiss", "alert");
+			aNode.setAttribute("aria-label", "close");
+			aNode.setAttribute("href", "#");
+			aNode.innerHTML = "&times;";
+			
+			let strongNode = document.createElement("strong");
+			let textNode = document.createTextNode("Cannot add ! " + allTestKits[i].testName + " (Test Kit) has already existed.");
+			strongNode.appendChild(textNode);
+						
+			let divNode = document.createElement("div");
+			divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+			divNode.appendChild(aNode);
+			divNode.appendChild(strongNode);
+
+			divNode.setAttribute("id", "errorMsg");
+			
+			document.getElementById("error").appendChild(divNode);
+		}
+	}
+	if (register == true){
+		
+		// create test kit and push into allTestKits
+		createTestKit = {
+			kitID: currentKitID++,
+			testName: formData['testName'],
+			availableStock: formData['availableStock'],
+			centreID: currentUser['centreID']
+		}
+		allTestKits.push(createTestKit);
+		
+		// insert the data into table
+		let tabObj = document.getElementById('testkitTable');
+		let tab = tabObj.getElementsByTagName("tbody")[0];
+		
+		let row = tab.insertRow(tab.length);
+		
+		let kitIDCell = row.insertCell(0);
+		kitIDCell.innerHTML = createTestKit['kitID'];
+		
+		let testNameCell = row.insertCell(1);
+		testNameCell.innerHTML = createTestKit['testName'];
+		
+		let stockCell = row.insertCell(2);
+		stockCell.innerHTML = createTestKit['availableStock'];
+		
+		let centreIDCell = row.insertCell(3);
+		centreIDCell.innerHTML = createTestKit['centreID'];
+		
+		let updateBtnCell = row.insertCell(4);
+		updateBtnCell.innerHTML = '<button type="button" id="update" value="update" data-toggle="modal"' +
+					  'data-target="#updateTestKitModal' + createTestKit['kitID'] + '"  class="btn btn-primary"> Update </button>';
+		
+		
+		// update test kit modal
+		let formEle = document.createElement('form');
+		formEle.setAttribute('id', 'updateTestKitForm' + createTestKit['kitID']);
+		
+		formEle.innerHTML = '<div class="modal fade" id="updateTestKitModal' + createTestKit['kitID'] + '" tabindex="-1" role="dialog">' +
+					'<div class="modal-dialog modal-dialog-centered" role="document">' +
+						'<div class="modal-content">' +
+							'<div class="modal-header">' +
+								'<h5 class="modal-title" id="exampleModalLongTitle">Update Test Kit Stock</h5>' +
+								'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+									'<span aria-hidden="true">&times;</span>' +
+								'</button>' +
+							'</div>' +
+							'<div class="modal-body">' +
+								'<div class="form-group row">' +
+									'<label for="kitID" class="col-sm-6 col-lg-4 col-form-label"> Kit ID </label>' +
+									'<div class="col-sm-12 col-lg-8">' +
+										'<input type="text" class="form-control" id="updateKitID' + createTestKit['kitID'] + '" name="kitID" value="' + createTestKit['kitID'] + '" readonly ><br>' +
+									'</div>' +
+								
+									'<label for="testName" class="col-sm-6 col-lg-4 col-form-label"> Test Kit Name </label>' +
+									'<div class="col-sm-12 col-lg-8">' +
+										'<input type="text" class="form-control" id="updateTestName' + createTestKit['kitID'] + '" name="testName" value="' + createTestKit['testName'] + '" readonly><br>' +
+									'</div>' +
+								
+									'<label for="Income Stock" class="col-sm-6 col-lg-4 col-form-label"> Income Stock </label>' +
+									'<div class="col-sm-12 col-lg-8">' +
+										'<input type="number" min="1" pattern="^[1-9][0-9]*$ class="form-control" name="stock" id="incomeStock' + createTestKit['kitID'] + '" required>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						
+							'<div class="modal-footer">' +
+								'<input name="action_name" id="action" value="updateTestKit" hidden>' +
+								'<input type="submit" class="btn btn-primary" name="submit" value="Update">' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+
+			// update function
+			formEle.onsubmit = 
+			function (){
+				event.preventDefault();
+				
+				// get the income stock of the selected test kit
+				let formData = {};
+				formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
+				formData["updateTestName"] = document.getElementById("updateTestName" + createTestKit['kitID']).value;
+				formData["updateKitID"] = document.getElementById("updateKitID" + createTestKit['kitID']).value;
+				console.log(formData);
+				let update = false;
+				
+				// remove the message created before
+				if (document.getElementById("errorMsg") != null){
+					document.getElementById("errorMsg").remove();
+				}
+				
+				for (let i = 0; i < allTestKits.length; i++){
+					if (allTestKits[i].kitID == formData["updateKitID"] && allTestKits[i].centreID == currentUser['centreID']){
+						update = true;
+						// update total stock
+						allTestKits[i].availableStock += formData["incomeStock"];
+						// update table
+						stockCell.innerHTML = allTestKits[i].availableStock;
+						// append the success message
+						let aNode = document.createElement("a");
+						aNode.setAttribute("class", "close");
+						aNode.setAttribute("data-dismiss", "alert");
+						aNode.setAttribute("aria-label", "close");
+						aNode.setAttribute("href", "#");
+						aNode.innerHTML = "&times;";
+						
+						let strongNode = document.createElement("strong");
+						let textNode = document.createTextNode("Update Successfully ! (" + allTestKits[i].testName + ") has been updated successfully!");
+						strongNode.appendChild(textNode);
+						
+						let divNode = document.createElement("div");
+						divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+						divNode.appendChild(aNode);
+						divNode.appendChild(strongNode);
+						divNode.setAttribute("id", "errorMsg");
+						
+						document.getElementById("error").appendChild(divNode);
+						
+					}
+				}
+				// should not possible to have this condition
+				if (update == false){
+					
+					// append the failure message
+					let aNode = document.createElement("a");
+					aNode.setAttribute("class", "close");
+					aNode.setAttribute("data-dismiss", "alert");
+					aNode.setAttribute("aria-label", "close");
+					aNode.setAttribute("href", "#");
+					aNode.innerHTML = "&times;";
+					
+					let strongNode = document.createElement("strong");
+					let textNode = document.createTextNode("Update Failure ! " + formData["updateTestName"] + " (Test Kit) is not found.");
+					strongNode.appendChild(textNode);
+								
+					let divNode = document.createElement("div");
+					divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+					divNode.appendChild(aNode);
+					divNode.appendChild(strongNode);
+
+					divNode.setAttribute("id", "errorMsg");
+					
+					document.getElementById("error").appendChild(divNode);
+					
+				}
+				
+			}
+
+			document.body.appendChild(formEle);
+			
+			// hide the modal once the form submitted
+			$(document).ready(function() {									
+				 $('#updateTestKitForm' + createTestKit['kitID']).submit(function() {
+					$("#updateTestKitModal" + createTestKit['kitID']).modal("hide");
+				});
+			});
+					  
+		// append the success message
+		let aNode = document.createElement("a");
+		aNode.setAttribute("class", "close");
+		aNode.setAttribute("data-dismiss", "alert");
+		aNode.setAttribute("aria-label", "close");
+		aNode.setAttribute("href", "#");
+		aNode.innerHTML = "&times;";
+		
+		let strongNode = document.createElement("strong");
+		let textNode = document.createTextNode("New test centre (" + createTestKit['testName'] + ") has been added successfully!");
+		strongNode.appendChild(textNode);
+		
+		let divNode = document.createElement("div");
+		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+		divNode.appendChild(aNode);
+		divNode.appendChild(strongNode);
+		divNode.setAttribute("id", "errorMsg");
+		
+		document.getElementById("error").appendChild(divNode);
+		
+	}
 }
 
 
-// hide the modal once the register centre form submitted
+
+// hide the modal once the form submitted
 $(document).ready(function() {
    $('#registerCentreForm').submit(function() {
 		$("#registerCentreModal").modal("hide");
+	});
+	 $('#registerTestKitForm').submit(function() {
+		$("#registerTestKitModal").modal("hide");
 	});
 });
 
