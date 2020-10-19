@@ -13,7 +13,7 @@ Student ID: B1802197
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="css/recordTester.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="css/findPatient.css" type="text/css" media="screen">
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
     <title>CoviDeal - The Covid-19 Test Information System</title>
 	
@@ -105,8 +105,10 @@ Student ID: B1802197
 		</div>
 	</div>
 	
-	<!-- display the list of test kit !-->
-		<h3>Patient Table</h3>
+	<!-- title here !-->
+		<p id="msg">
+		</p>
+		
 		<!-- list of all patient !-->
 		<table class="table table-borderless" id="patientTable" >
 				<tr class="thead-dark">
@@ -120,100 +122,230 @@ Student ID: B1802197
 				</tr>
 			  </thead>
 			  <tbody>
-			   <!--table for patient details!-->
-			  <?php
-			  while($row = mysqli_fetch_array($resultset)):
-			  ?>
-				<tr>
-				  <td align="center"><?php echo $row['id'];?></td>
-				  <td align="center"><?php echo $row['username'];?></td>
-				  <td align="center"><?php echo $row['name'];?></td>
-				  <td align="center"><?php echo $row['nation'];?></td>
-				  <td align="center"><?php echo $row['patientType'];?></td>
-				  <td align="center"><?php echo $row['symptoms'];?></td>
-				  <td align="middle">
-				  <button type="button" id="update" value="update" data-toggle="modal" 
-				  data-target="#updatePatientModal<?php echo $row['id'];?>" 
-				  class="btn btn-primary"> Update </button>
-				  </td>
-				</tr>				
-			  
-				<!-- Update Test Kit Stock Modal !-->
-				<form action="common.php" method="POST">
-					<div class="modal fade" id="updatePatientModal<?php echo $row['id'];?>"
-					tabindex="-1" role="dialog">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Update Patient & Record New Test</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<div class="form-group row">
-										<label for="id" class="col-sm-6 col-lg-4 col-form-label"> UserID </label>
-										<div class="col-sm-12 col-lg-8">
-											<input type="text" class="form-control" name="id" value="<?php echo $row['id'];?>" readonly><br>
-										</div>
-									
-										<label for="username" class="col-sm-6 col-lg-4 col-form-label"> Username </label>
-										<div class="col-sm-12 col-lg-8">
-											<input type="text" class="form-control" name="username" value="<?php echo $row['username'];?>" readonly><br>
-										</div>
-										
-								<label for="type"class="col-sm-6 col-lg-4 col-form-label">Patient Type</label>
-								<div class="col-sm-12 col-lg-8">
-								<select name="patientType" id="patientType" class="form-control">
-									<option value="Returnee">Returnee</option>
-									<option value="Quarantine">Quarantine</option>
-									<option value="Close Contact">Close Contact</option>
-									<option value="Infected">Infected</option>
-									<option value="Suspected">Suspected</option>
-									
-								</select>
-								<br>
-								</div>
-								<label for="name"class="col-sm-6 col-lg-4 col-form-label">Symptoms</label>
-								<div class="col-sm-12 col-lg-8">
-									<input type="text" class="form-control" name="symptoms"
-									maxlength = "50"
-									placeholder="Symptoms of the Patient" required>
-									<div class="invalid-feedback">Please enter the Symptoms.</div><br>
-								</div>
-								<label for="kitID"class="col-sm-6 col-lg-4 col-form-label">KITID</label>
-										<div class="col-sm-12 col-lg-8">
+			  <script>
+					
+					// preset the centreID
+					currentUser['centreID'] = 1;
+					currentUser['id']=4;
+					// Test kit array
+					var allTest= [];
+					// insert data of allUsers into table
+					for (let i = 0; i < allUsers.length; i++){
+						if(allUsers[i].position===("patient")){
+							
+							// insert the data into table
+							let tabObj = document.getElementById('patientTable');
+							let tab = tabObj.getElementsByTagName("tbody")[0];
+							
+							let row = tab.insertRow(tab.length);
+							
+							let idCell = row.insertCell(0);
+							idCell.innerHTML = allUsers[i].id;
+							
+							let usernameCell = row.insertCell(1);
+							usernameCell.innerHTML = allUsers[i].username;
+							
+							let nameCell = row.insertCell(2);
+							nameCell.innerHTML =  allUsers[i].name;
+							
+							let nationCell = row.insertCell(3);
+							nationCell.innerHTML =  allUsers[i].nation;
+							
+							let patientTypeCell = row.insertCell(4);
+							patientTypeCell.innerHTML =  allUsers[i].patientType;
+							
+							let symptomsCell = row.insertCell(5);
+							symptomsCell.innerHTML =  allUsers[i].symptoms;
+							
+							// update patient button
+							let updateBtnCell = row.insertCell(6);
+							updateBtnCell.innerHTML = '<button type="button" id="update" value="update" data-toggle="modal"' +
+										  'data-target="#updatePatientModal' + allUsers[i].id + '"  class="btn btn-primary"> Update </button>';
+							<!-- Update Patient Modal !--> 
+							let formEle = document.createElement('form');
+							formEle.setAttribute('id', 'updatePatientForm' +  allUsers[i].id);
+							
+							formEle.innerHTML = '<div class="modal fade" id="updatePatientModal' + allUsers[i].id + '" tabindex="-1" role="dialog">' +
+										'<div class="modal-dialog modal-dialog-centered" role="document">' +
+											'<div class="modal-content">' +
+												'<div class="modal-header">' +
+													'<h5 class="modal-title" id="exampleModalLongTitle">Update Patient and Record New Test</h5>' +
+													'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+														'<span aria-hidden="true">&times;</span>' +
+													'</button>' +
+												'</div>' +
+												'<div class="modal-body">' +
+													'<div class="form-group row">' +
+														'<label for="id" class="col-sm-6 col-lg-4 col-form-label"> id </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<input type="text" class="form-control" id="updateID' + allUsers[i].id + '" name="id" value="' +  allUsers[i].id + '" readonly ><br>' +
+														'</div>' +
+													
+														'<label for="username" class="col-sm-6 col-lg-4 col-form-label"> Username </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<input type="text" class="form-control" id="updateUsername' + allUsers[i].username + '" name="userame" value="' +  allUsers[i].username + '" readonly><br>' +
+														'</div>' +
+													
+														'<label for="patientType" class="col-sm-6 col-lg-4 col-form-label"> Patient Type </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<select name="patientType" id="patientType'+allUsers[i].id+'" class="form-control">'+
+																'<option value="Returnee">Returnee</option>'+
+																'<option value="Quarantine">Quarantine</option>'+
+																'<option value="Close Contact">Close Contact</option>'+
+																'<option value="Infected">Infected</option>'+
+																'<option value="Suspected">Suspected</option>'+
+															'</select><br>'+
+														'</div>' +
+														
+														'<label for="symptoms" class="col-sm-6 col-lg-4 col-form-label"> Symptoms </label>' +
+														'<div class="col-sm-12 col-lg-8">' +
+															'<input type="text"  class="form-control" name="symptoms" id="symptoms'+allUsers[i].id+'" required><br>' +
+														'</div>' +
+														
+														'<label for="kitID" class="col-sm-6 col-lg-4 col-form-label"> KITID </label>' +
+															'<div class="col-sm-12 col-lg-8">' +
+															'<input type="number" min="1" pattern="^[1-9][0-9]*$ class="form-control" name="kitID" id="kitID'+allUsers[i].id+'" required>' +
+														'</div>' +
+													'</div>' +
+												'</div>' +
 											
-											<select name="kitID" class="form-control" >
-												<?php
-												
-													foreach($testkit_row  as $i => $v) :
-												?>
-												<option value="<?php echo $i ?>"><?php echo $i.":  ".$v;?></option>
-												<?php endforeach ?>
-											</select>
-										</div>
+												'<div class="modal-footer">' +
+													'<input name="action_name" id="action" value="updatePatient" hidden>' +
+													'<input type="submit" class="btn btn-primary" name="submit" value="Update">' +
+												'</div>' +
+											'</div>' +
+										'</div>' +
+									'</div>';
+								
+								// update function
+								formEle.onsubmit = 
+								function (){
+									event.preventDefault();
+									
+									// get the income stock of the selected test kit
+									let formData = {};
+									formData["patientType"] =document.getElementById("patientType" + allUsers[i].id).value;
+									formData["symptoms"] = document.getElementById("symptoms" + allUsers[i].id).value;
+									formData["updateID"] = document.getElementById("updateID" + allUsers[i].id).value;
+									if (parseInt(document.getElementById("kitID").value) != null){
+										formData["kitID"] = parseInt(document.getElementById("kitID"+allUsers[i].id).value);
+									}
+									let update = false;
+									
+									// remove the message created before
+									if (document.getElementById("errorMsg") != null){
+										document.getElementById("errorMsg").remove();
+									}
+									
+									for (let i = 0; i < allTestKits.length; i++){
+										if(allTestKits[i].kitID==formData["kitID"])
+										{
+											for (let i = 0; i < allUsers.length; i++){
+											if(allUsers[i].id==formData["updateID"])
+												{
+												update = true;
+											allUsers[i].patientType=formData["patientType"];
+											allUsers[i].symptoms=formData["symptoms"];
+											
+											// update stock
+											for (let i = 0; i < allTestKits.length; i++){
+												if(allTestKits[i].kitID==formData["kitID"])
+												{
+													allTestKits[i].availableStock--;
+												}
+											}
+											
+											// create new test and push to all test
+											var d=new Date();
+											var newtest = {
+												testID:currentTestID++,
+												testDate:d,
+												result:'pending',
+												resultDate:'pending',
+												status:'pending',
+												id:currentUser['id'],
+												kitID:formData['kitID'],
+											}
+											allTest.push(newtest);
+											// update table
+											idCell.innerHTML = allUsers[i].id;
+											usernameCell.innerHTML = allUsers[i].username;
+											nameCell.innerHTML = allUsers[i].name;
+											nationCell.innerHTML = allUsers[i].nation;
+											patientTypeCell.innerHTML = allUsers[i].patientType;
+											symptomsCell.innerHTML = allUsers[i].symptoms;
+											// append the success message
+											let aNode = document.createElement("a");
+											aNode.setAttribute("class", "close");
+											aNode.setAttribute("data-dismiss", "alert");
+											aNode.setAttribute("aria-label", "close");
+											aNode.setAttribute("href", "#");
+											aNode.innerHTML = "&times;";
+											
+											let strongNode = document.createElement("strong");
+											let textNode = document.createTextNode("Update Successfully ! Username(" + allUsers[i].username + ") and Test TestID("+currentTestID+") has been updated successfully!");
+											strongNode.appendChild(textNode);
+											let divNode = document.createElement("div");
+											divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
+											divNode.appendChild(aNode);
+											divNode.appendChild(strongNode);
+											divNode.setAttribute("id", "errorMsg");
+											
+											document.getElementById("error").appendChild(divNode);
+											
+												}
+											}
+											
+									}
+									}
+									
+									
+									// KitID Not found
+									if (update == false){
 										
-									</div>
-								</div>
-								<div class="modal-footer">
-								 <!--submit and go to common.php!-->
-									<input name="action_name" value="updatePatient" hidden>
-									<input type="submit" class="btn btn-primary" name="submit" value="Update">
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-			  <?php endwhile;?>
+										// append the failure message
+										let aNode = document.createElement("a");
+										aNode.setAttribute("class", "close");
+										aNode.setAttribute("data-dismiss", "alert");
+										aNode.setAttribute("aria-label", "close");
+										aNode.setAttribute("href", "#");
+										aNode.innerHTML = "&times;";
+										
+										let strongNode = document.createElement("strong");
+										let textNode = document.createTextNode("Update Failure ! " + formData["kitID"] + " (KIT ID) is not found.");
+										strongNode.appendChild(textNode);
+													
+										let divNode = document.createElement("div");
+										divNode.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+										divNode.appendChild(aNode);
+										divNode.appendChild(strongNode);
+
+										divNode.setAttribute("id", "errorMsg");
+										
+										document.getElementById("error").appendChild(divNode);
+										
+									}
+									
+								}
+								document.body.appendChild(formEle);
+							
+							
+								// hide the modal once the form submitted
+								$(document).ready(function() {									
+									 $('#updatePatientForm' + allUsers[i].id).submit(function() {
+										$("#updatePatientModal" + allUsers[i].id).modal("hide");
+									});
+								});
+						}
+							}
+				  </script>	
 			</tbody>
 		</table>
-		<?php } ?>
 			<br><br>
 			<div>
 			 <!--button for register new patient!-->
 				  <button id="btn1" type="button" class="btn btn-success" data-toggle="modal"
-				  data-target="#recordPatientModal"> Register </button>
+				  data-target="#registerPatientModal"> Register </button>
 			</div>
 			<br>
 	   </div>  
@@ -222,8 +354,8 @@ Student ID: B1802197
 		
 		
 		<!-- RecordPatient Modal !-->
-			<form action="common.php" method="POST" class="needs-validation" novalidate>
-				<div class="modal fade" id="recordPatientModal" tabindex="-1" role="dialog">
+			<form onsubmit="common('registerPatient')" id="registerPatientForm">
+				<div class="modal fade" id="registerPatientModal" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -236,27 +368,24 @@ Student ID: B1802197
 								<div class="form-group row">
 									<label for="username"class="col-sm-6 col-lg-4 col-form-label"> Username</label>
 									<div class="col-sm-12 col-lg-8">
-									<input type="text" class="form-control" name="username"  pattern="[a-zA-Z ]+" maxlength = "20"
-									placeholder="Username" required>
-									<div class="invalid-feedback">Please enter the Username(Should Contain only Letter).</div><br>
+									<input type="text" class="form-control" id="username"  pattern="[a-zA-Z ]+" maxlength = "20"
+									placeholder="Username" required><br>
 								</div>
 
 								<label for="password" class="col-sm-6 col-lg-4 col-form-label"> Password</label>
 								<div class="col-sm-12 col-lg-8">
-									<input type="password" class="form-control" name="password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
+									<input type="password" class="form-control" id="password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
 									minlength="8"
 									maxlength = "20"
-									placeholder="Password" required>
-									<div class="invalid-feedback">Please enter the Password(Format[a-z,A-Z,can contain number, total should not less than 8 letters]).</div><br>
+									placeholder="Password" required><br>
 								</div>
 
 
 								<label for="name"class="col-sm-6 col-lg-4 col-form-label"> Name</label>
 								<div class="col-sm-12 col-lg-8">
-									<input type="text" class="form-control" name="name" pattern="[a-zA-Z ]+"
+									<input type="text" class="form-control" id="name" pattern="[a-zA-Z ]+"
 									maxlength = "50"
-									placeholder="Full Name" required>
-									<div class="invalid-feedback">Please enter the Name(Should Contain only Letter).</div><br>
+									placeholder="Full Name" required><br>
 								</div>
 								<label for="type"class="col-sm-6 col-lg-4 col-form-label">Nation</label>
 								<div class="col-sm-12 col-lg-8">
@@ -280,29 +409,22 @@ Student ID: B1802197
 								</div>
 								<label for="symptoms"class="col-sm-6 col-lg-4 col-form-label">Symptoms</label>
 								<div class="col-sm-12 col-lg-8">
-									<input type="text" class="form-control" name="symptoms"
+									<input type="text" class="form-control" id="symptoms"
 									maxlength = "50"
-									placeholder="Symptoms of the Patient" required>
-									<div class="invalid-feedback">Please enter the Symptoms.</div><br>
+									placeholder="Symptoms of the Patient" required><br>
 								</div>
 								
 								<label for="kitID"class="col-sm-6 col-lg-4 col-form-label">KITID</label>
 										<div class="col-sm-12 col-lg-8">
-											
-											<select name="kitID" class="form-control" >
-												<?php
-												
-													foreach($testkit_row  as $i => $v) :
-												?>
-												<option value="<?php echo $i ?>"><?php echo $i.":   ".$v;?></option>
-												<?php endforeach ?>
-											</select>
+											<input type="number" min="1" pattern="^[1-9][0-9]*$" id="kitID"
+											title="Please enter a valid number."
+											class="form-control" name="stock" required><br>
 										</div>
 								</div>
 							</div>
-							 <!--go to common.php!-->
+							 <!--go to common.js!-->
 							<div class="modal-footer">
-								<input name="action_name" value="recordPatient" hidden>
+								<input name="action_name" id="action"value="registerPatient" hidden>
 								<input type="submit" class="btn btn-primary" name="submit" value="Register">
 							</div>
 						</div>
@@ -330,6 +452,24 @@ Student ID: B1802197
         </div>
       </div>
 	</footer>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script>
+			// if no patient
+			if (allUsers.length == 0){
+				let h3Node = document.createElement("h3");
+				let textNode = document.createTextNode("There are no User currently, please add one !");
+				h3Node.appendChild(textNode);
+				document.getElementById("msg").appendChild(h3Node);
+			}
+			// if have test kit
+			else {
+				let h3Node = document.createElement("h3");
+				let textNode = document.createTextNode("Patient Table");
+				h3Node.appendChild(textNode);
+				document.getElementById("msg").appendChild(h3Node);
+			}
+		
+	</script>
 	
 </body>
 </html>
