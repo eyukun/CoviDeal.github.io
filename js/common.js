@@ -945,7 +945,7 @@ function registerPatient(){
 			let usernameCell = row.insertCell(1);
 			usernameCell.innerHTML = createUser.username;
 			let nameCell = row.insertCell(2);
-			nameCell.innerHTML =  createUser.availableStock;
+			nameCell.innerHTML =  createUser.name;
 			let nationCell = row.insertCell(3);
 			nationCell.innerHTML =  createUser.nation;
 			let patientTypeCell = row.insertCell(4);
