@@ -148,14 +148,6 @@ var createCentre = {
 	id: 'null'
 }
 
-// create test kit
-var createTestKit = {
-	kitID: 'null',
-	testName: 'null',
-	availableStock: 'null',
-	centreID: 'null'
-}
-
 // Centres initialised values
 var centres = {
 	kl: {
@@ -673,7 +665,7 @@ function registerTestKit(){
 	if (register == true){
 		
 		// create test kit and push into allTestKits
-		createTestKit = {
+		let createTestKit = {
 			kitID: currentKitID++,
 			testName: formData['testName'],
 			availableStock: formData['availableStock'],
