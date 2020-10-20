@@ -204,9 +204,10 @@ Student ID: B1900083
 									
 									// get the income stock of the selected test kit
 									let formData = {};
-									formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + allTestKits[i].kitID).value);
+                  formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
 									formData["updateTestName"] = document.getElementById("updateTestName" + allTestKits[i].kitID).value;
 									formData["updateKitID"] = document.getElementById("updateKitID" + allTestKits[i].kitID).value;
+
 									let update = false;
 									
 									// remove the message created before
