@@ -115,11 +115,17 @@ Student ID: B1802197
 			  </thead>
 			  <tbody>
 			  <script>
-					
-					// insert data of allTest into table
-					for (let i = 0; i < allTest.length; i++){
-						if(allTest[i].result===("positive")){
-							
+				var currentTestKits = [];
+				let currentCentre = 1;
+				for (let a = 0; a < allTestKits.length; a++){
+					if (allTestKits[a].centreID == currentCentre){
+						currentTestKits.push(allTestKits[a]);
+				}
+				}
+				// insert data of all pending tests into table
+				for (let i = 0; i < allTest.length; i++){
+					for (let j = 0; j < currentTestKits.length; j++){
+						if (allTest[i].kitID == currentTestKits[j].kitID && allTest[i].status == "complete"){
 							// insert the data into table
 							let tabObj = document.getElementById('testTable');
 							let tab = tabObj.getElementsByTagName("tbody")[0];
@@ -145,8 +151,8 @@ Student ID: B1802197
 							idCell.innerHTML =  allTest[i].id;
 							
 							let kitIDCell = row.insertCell(6);
-							kitIDCell.innerHTML =  allTest[i].kitID;
-					}}		
+							kitIDCell.innerHTML = allTest[i].kitID;
+					}}		}
  	 </script>	
 			</tbody>
 		</table>

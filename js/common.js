@@ -291,10 +291,10 @@ var tests = {
 	t8: {
 		testID: 8,
 		testDate: "2020-10-14",
-		result: "positive",
+		result: "negative",
 		resultDate: "2020-10-21",
 		status: "complete",
-		id: 6,
+		id: 10,
 		kitID: 2
 	},
 	t9: {
@@ -309,10 +309,10 @@ var tests = {
 	t10: {
 		testID: 10,
 		testDate: "2020-10-15",
-		result: "positive",
+		result: "negative",
 		resultDate: "2020-10-22",
 		status: "complete",
-		id: 9,
+		id: 11,
 		kitID: 3
 	},
 	t11: {
@@ -321,8 +321,26 @@ var tests = {
 		result: "positive",
 		resultDate: "2020-10-23",
 		status: "complete",
-		id: 8,
+		id: 13,
 		kitID: 5
+	},
+	t12: {
+		testID: 12,
+		testDate: "2020-10-16",
+		result: "negative",
+		resultDate: "2020-10-24",
+		status: "complete",
+		id: 14,
+		kitID: 2
+	},
+	t13: {
+		testID: 13,
+		testDate: "2020-10-18",
+		result: "positive",
+		resultDate: "2020-10-24",
+		status: "complete",
+		id: 16,
+		kitID: 3
 	}
 	
 }
