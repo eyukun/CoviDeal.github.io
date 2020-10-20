@@ -1,0 +1,211 @@
+<!--
+Student Name: Ng Jun Zhi
+Student ID: B1802197
+!-->
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <!--link for boostrap!-->
+    
+	 <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- css source !-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="css/generateTestReport.css" type="text/css" media="screen">
+	 <link rel="stylesheet" href="css/generateTestReport.css" type="text/css" media="print">
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <title>CoviDeal - The Covid-19 Test Information System</title>
+	
+	<!-- js source !-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	
+	 <!--java script!-->
+	<script>
+		function searchTest() {
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById("filter");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("testTable");
+		  tr = table.getElementsByTagName("tr");
+		  for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+			  txtValue = td.textContent || td.innerText;
+			  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			  } else {
+				tr[i].style.display = "none";
+			  }
+			}
+		  }
+		}
+	</script>
+  </head>
+
+ <body>
+ <body>
+   <!--navigation-->
+ 	<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       <ul class="nav nav-pills" role="tablist">
+			 <li class="nav-item pill-1">
+				<a class="navbar-brand" style="font-family:cursive; color: white;">CoviDeal</a>
+			 </li>
+         <li class="nav-item pill-2">
+             <a class="nav-link active" href="GenerateTestReport.html" style ="color:white">Generate Test Report</a>
+         </li>
+		
+ 	   </ul>
+ 			
+		<ul class="navbar-nav mr-auto">
+       </ul>
+       <a class="navbar-brand" href="index.html" style="font-family:cursive; color: white;"><i class="fa fa-sign-out"></i>Sign out</a>
+      
+ 	</div>
+   </nav>
+   
+	
+   <!-- Body !-->
+   <!-- container !-->
+  <div class = "container" id = "box">
+	<div>
+	  <h1 class="display-4">Generate Test Report</h1>
+	  <hr class="my-4">
+	</div>	
+	<hr>
+	 <div class="row align-items-center">
+		<div class="mx-auto">
+			 <form class="form-inline">
+				<i class="fa fa-search" aria-hidden="true" 
+				style="margin-right: 6px;"></i>
+			   <input class="form-control" id="filter" 
+			   type="number" min="1" style="width: 400px;"
+			   placeholder="Search by TestID" onkeyup="searchTest()">
+			 </form>	
+		 </div>
+	 </div>
+	 </hr>
+	
+	<!-- title here !-->
+		<p id="msg">
+		</p>
+		
+		<!-- list of all Test !-->
+		<table class="table table-borderless" id="testTable" >
+			<thead>
+				<tr class="thead-dark">
+				  <th class="text-center">Test ID</th>
+				  <th class="text-center">Test Date</th>
+				  <th class="text-center">Result</th>
+				  <th class="text-center">Result Date</th>
+				  <th class="text-center">Status</th>
+				  <th class="text-center">Patient ID</th>
+				  <th class="text-center">Kit ID</th>
+				</tr>
+			  </thead>
+			  <tbody>
+			  <script>
+				var currentTestKits = [];
+				let currentCentre = 1;
+				for (let a = 0; a < allTestKits.length; a++){
+					if (allTestKits[a].centreID == currentCentre){
+						currentTestKits.push(allTestKits[a]);
+				}
+				}
+				// insert data of all pending tests into table
+				for (let i = 0; i < allTest.length; i++){
+					for (let j = 0; j < currentTestKits.length; j++){
+						if (allTest[i].kitID == currentTestKits[j].kitID && allTest[i].status == "complete"){
+							// insert the data into table
+							let tabObj = document.getElementById('testTable');
+							let tab = tabObj.getElementsByTagName("tbody")[0];
+							
+							let row = tab.insertRow(tab.length);
+							
+							let testIDCell = row.insertCell(0);
+							testIDCell.innerHTML = allTest[i].testID;
+							
+							let testDateCell = row.insertCell(1);
+							testDateCell.innerHTML = allTest[i].testDate;
+							
+							let resultCell = row.insertCell(2);
+							resultCell.innerHTML =  allTest[i].result;
+							
+							let resultDateCell = row.insertCell(3);
+							resultDateCell.innerHTML =  allTest[i].resultDate;
+							
+							let statusCell = row.insertCell(4);
+							statusCell.innerHTML =  allTest[i].status;
+							
+							let idCell = row.insertCell(5);
+							idCell.innerHTML =  allTest[i].id;
+							
+							let kitIDCell = row.insertCell(6);
+							kitIDCell.innerHTML = allTest[i].kitID;
+					}}		}
+ 	 </script>	
+			</tbody>
+		</table>
+			<br><br>
+			<div>
+			 <!--button to print out this page!-->
+				<button class="btn btn-success" onclick="window.print()">Print Test Report</button>
+			</div>
+			<br>
+	   </div>  
+		<br><br>
+   <!-- footer !-->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved.
+            </p>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="button" target="_blank" href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="button" target="_blank" href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="button" target="_blank" href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
+			  <li><a class="button" target="_blank" href="https://www.outlook.com"><i class="fa fa-envelope"></i></a></li>			  
+            </ul>
+          </div>
+        </div>
+      </div>
+	</footer>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script>
+			// if no patient
+			if (allTest.length == 0){
+				let h3Node = document.createElement("h3");
+				let textNode = document.createTextNode("There are no Test currently, please add one !");
+				h3Node.appendChild(textNode);
+				document.getElementById("msg").appendChild(h3Node);
+			}
+			// if have test kit
+			else {
+				let h3Node = document.createElement("h3");
+				let textNode = document.createTextNode("Test Table");
+				h3Node.appendChild(textNode);
+				document.getElementById("msg").appendChild(h3Node);
+			}
+		
+	</script>
+	
+</body>
+</html>
+<!--
+Student Name: Ng Jun Zhi
+Student ID: B1802197
+!-->

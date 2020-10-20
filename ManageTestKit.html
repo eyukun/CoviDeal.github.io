@@ -129,7 +129,6 @@ Student ID: B1900083
 					
 					// preset the centreID
 					currentUser['centreID'] = 1;
-					
 					// insert data of allTestKits into table
 					for (let i = 0; i < allTestKits.length; i++){
 						
@@ -204,10 +203,9 @@ Student ID: B1900083
 									
 									// get the income stock of the selected test kit
 									let formData = {};
-                  formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
+									formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + allTestKits[i].kitID).value);
 									formData["updateTestName"] = document.getElementById("updateTestName" + allTestKits[i].kitID).value;
 									formData["updateKitID"] = document.getElementById("updateKitID" + allTestKits[i].kitID).value;
-
 									let update = false;
 									
 									// remove the message created before
@@ -231,7 +229,7 @@ Student ID: B1900083
 											aNode.innerHTML = "&times;";
 											
 											let strongNode = document.createElement("strong");
-											let textNode = document.createTextNode("Update Successfully ! (" + allTestKits[i].testName + ") has been updated successfully!");
+											let textNode = document.createTextNode("Update Successfully ! Test Kit(" + allTestKits[i].testName + ") has been updated successfully!");
 											strongNode.appendChild(textNode);
 											
 											let divNode = document.createElement("div");

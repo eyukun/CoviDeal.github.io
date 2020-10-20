@@ -224,8 +224,135 @@ for (var testkit in testkits){
 	allTestKits.push(testkits[testkit]);
 }
 
+
+var tests = {
+	t1: {
+		testID: 1,
+		testDate: "2020-10-20",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 7,
+		kitID: 1
+	},
+	t2: {
+		testID: 2,
+		testDate: "2020-10-11",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 8,
+		kitID: 1
+	},
+	t3: {
+		testID: 3,
+		testDate: "2020-10-12",
+		result: "positive",
+		resultDate: "2020-10-20",
+		status: "complete",
+		id: 9,
+		kitID: 1
+	},
+	t4: {
+		testID: 4,
+		testDate: "2020-10-13",
+		result: "positive",
+		resultDate: "2020-10-20",
+		status: "complete",
+		id: 7,
+		kitID: 4
+	},
+	t5: {
+		testID: 5,
+		testDate: "2020-10-10",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 9,
+		kitID: 4
+	},
+	t6: {
+		testID: 6,
+		testDate: "2020-10-18",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 8,
+		kitID: 1
+	},
+	t7: {
+		testID: 7,
+		testDate: "2020-10-16",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 7,
+		kitID: 1
+	},
+	t8: {
+		testID: 8,
+		testDate: "2020-10-14",
+		result: "negative",
+		resultDate: "2020-10-21",
+		status: "complete",
+		id: 10,
+		kitID: 2
+	},
+	t9: {
+		testID: 9,
+		testDate: "2020-10-14",
+		result: "positive",
+		resultDate: "2020-10-22",
+		status: "complete",
+		id: 7,
+		kitID: 4
+	},
+	t10: {
+		testID: 10,
+		testDate: "2020-10-15",
+		result: "negative",
+		resultDate: "2020-10-22",
+		status: "complete",
+		id: 11,
+		kitID: 3
+	},
+	t11: {
+		testID: 11,
+		testDate: "2020-10-16",
+		result: "positive",
+		resultDate: "2020-10-23",
+		status: "complete",
+		id: 13,
+		kitID: 5
+	},
+	t12: {
+		testID: 12,
+		testDate: "2020-10-16",
+		result: "negative",
+		resultDate: "2020-10-24",
+		status: "complete",
+		id: 14,
+		kitID: 2
+	},
+	t13: {
+		testID: 13,
+		testDate: "2020-10-18",
+		result: "positive",
+		resultDate: "2020-10-24",
+		status: "complete",
+		id: 16,
+		kitID: 3
+	}
+	
+}
+
 //Test array
 var allTest=[];
+
+// add in the test
+for (var test in tests){
+	allTest.push(tests[test]);
+}
 
 // function to determine which function going
 function common(action){
@@ -820,7 +947,7 @@ function registerPatient(){
 			let usernameCell = row.insertCell(1);
 			usernameCell.innerHTML = createUser.username;
 			let nameCell = row.insertCell(2);
-			nameCell.innerHTML =  createUser.availableStock;
+			nameCell.innerHTML =  createUser.name;
 			let nationCell = row.insertCell(3);
 			nationCell.innerHTML =  createUser.nation;
 			let patientTypeCell = row.insertCell(4);
@@ -895,11 +1022,11 @@ function registerPatient(){
 									
 									// get the income stock of the selected test kit
 									let formData = {};
-									formData["patientType"] =document.getElementById("patientType" + allUsers[i].id).value;
-									formData["symptoms"] = document.getElementById("symptoms" + allUsers[i].id).value;
-									formData["updateID"] = document.getElementById("updateID" + allUsers[i].id).value;
-									if (parseInt(document.getElementById("kitID").value) != null){
-										formData["kitID"] = parseInt(document.getElementById("kitID"+allUsers[i].id).value);
+									formData["patientType"] =document.getElementById("patientType" + createUser.id).value;
+									formData["symptoms"] = document.getElementById("symptoms" + createUser.id).value;
+									formData["updateID"] = document.getElementById("updateID" + createUser.id).value;
+									if (parseInt(document.getElementById("kitID"+createUser.id).value) != null){
+										formData["kitID"] = parseInt(document.getElementById("kitID"+createUser.id).value);
 									}
 									let update = false;
 									
@@ -954,8 +1081,7 @@ function registerPatient(){
 											aNode.innerHTML = "&times;";
 											
 											let strongNode = document.createElement("strong");
-											let textNode = document.createTextNode("Update Successfully ! Username(" + allUsers[i].username + ") and Test has been updated successfully!");
-											currentTestID++;
+											let textNode = document.createTextNode("Update Successfully ! Username(" + allUsers[i].username + ") and Test("+currentTestID+") has been updated successfully!");
 											strongNode.appendChild(textNode);
 											
 											let divNode = document.createElement("div");

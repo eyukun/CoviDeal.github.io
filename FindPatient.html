@@ -111,6 +111,7 @@ Student ID: B1802197
 		
 		<!-- list of all patient !-->
 		<table class="table table-borderless" id="patientTable" >
+			<thead>
 				<tr class="thead-dark">
 				  <th class="text-center">UserID</th>
 				  <th class="text-center">Username</th>
@@ -127,8 +128,6 @@ Student ID: B1802197
 					// preset the centreID
 					currentUser['centreID'] = 1;
 					currentUser['id']=4;
-					// Test kit array
-					var allTest= [];
 					// insert data of allUsers into table
 					for (let i = 0; i < allUsers.length; i++){
 						if(allUsers[i].position===("patient")){
@@ -183,7 +182,7 @@ Student ID: B1802197
 													
 														'<label for="username" class="col-sm-6 col-lg-4 col-form-label"> Username </label>' +
 														'<div class="col-sm-12 col-lg-8">' +
-															'<input type="text" class="form-control" id="updateUsername' + allUsers[i].username + '" name="userame" value="' +  allUsers[i].username + '" readonly><br>' +
+															'<input type="text" class="form-control" id="updateUsername' + allUsers[i].username + '" name="username" value="' +  allUsers[i].username + '" readonly><br>' +
 														'</div>' +
 													
 														'<label for="patientType" class="col-sm-6 col-lg-4 col-form-label"> Patient Type </label>' +
