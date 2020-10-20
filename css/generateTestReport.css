@@ -21,7 +21,7 @@ Student ID: B1802197
 }
 
 .table {
-	width: 61%;
+	width: 59%;
 	overflow-y: scroll;
 	height: 300px;
 	display: block;
@@ -142,21 +142,21 @@ Student ID: B1802197
 @media (max-width:1200px)
 {
 	.table {
-		width: 63.5%;
+		width: 70.5%;
 	}
 }
 
 @media (max-width:1100px)
 {
 	.table {
-		width: 63.5%;
+		width: 70.5%;
 	}
 }
 
 @media (max-width:991px)
 {
 	.table {
-		width: 85.5%;
+		width: 95%;
 	}
 	
   .site-footer [class^=col-]
