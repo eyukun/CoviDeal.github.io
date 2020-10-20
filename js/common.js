@@ -223,8 +223,81 @@ for (var testkit in testkits){
 	allTestKits.push(testkits[testkit]);
 }
 
+
+var tests = {
+	t1: {
+		testID: 1,
+		testDate: "2020-10-20",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 7,
+		kitID: 1
+	},
+	t2: {
+		testID: 2,
+		testDate: "2020-10-11",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 8,
+		kitID: 1
+	},
+	t3: {
+		testID: 3,
+		testDate: "2020-10-12",
+		result: "positive",
+		resultDate: "2020-10-20",
+		status: "complete",
+		id: 9,
+		kitID: 1
+	},
+	t4: {
+		testID: 4,
+		testDate: "2020-10-13",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 7,
+		kitID: 4
+	},
+	t5: {
+		testID: 5,
+		testDate: "2020-10-10",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 9,
+		kitID: 4
+	},
+	t6: {
+		testID: 6,
+		testDate: "2020-10-18",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 8,
+		kitID: 1
+	},
+	t7: {
+		testID: 7,
+		testDate: "2020-10-16",
+		result: "pending",
+		resultDate: "pending",
+		status: "pending",
+		id: 7,
+		kitID: 1
+	}
+	
+}
+
 //Test array
 var allTest=[];
+
+// add in the test
+for (var test in tests){
+	allTest.push(tests[test]);
+}
 
 // function to determine which function going
 function common(action){
