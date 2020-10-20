@@ -255,9 +255,9 @@ var tests = {
 	t4: {
 		testID: 4,
 		testDate: "2020-10-13",
-		result: "pending",
-		resultDate: "pending",
-		status: "pending",
+		result: "positive",
+		resultDate: "2020-10-20",
+		status: "complete",
 		id: 7,
 		kitID: 4
 	},
@@ -966,11 +966,11 @@ function registerPatient(){
 									
 									// get the income stock of the selected test kit
 									let formData = {};
-									formData["patientType"] =document.getElementById("patientType" + allUsers[i].id).value;
-									formData["symptoms"] = document.getElementById("symptoms" + allUsers[i].id).value;
-									formData["updateID"] = document.getElementById("updateID" + allUsers[i].id).value;
-									if (parseInt(document.getElementById("kitID").value) != null){
-										formData["kitID"] = parseInt(document.getElementById("kitID"+allUsers[i].id).value);
+									formData["patientType"] =document.getElementById("patientType" + createUser.id).value;
+									formData["symptoms"] = document.getElementById("symptoms" + createUser.id).value;
+									formData["updateID"] = document.getElementById("updateID" + createUser.id).value;
+									if (parseInt(document.getElementById("kitID"+createUser.id).value) != null){
+										formData["kitID"] = parseInt(document.getElementById("kitID"+createUser.id).value);
 									}
 									let update = false;
 									
@@ -1025,8 +1025,7 @@ function registerPatient(){
 											aNode.innerHTML = "&times;";
 											
 											let strongNode = document.createElement("strong");
-											let textNode = document.createTextNode("Update Successfully ! Username(" + allUsers[i].username + ") and Test has been updated successfully!");
-											currentTestID++;
+											let textNode = document.createTextNode("Update Successfully ! Username(" + allUsers[i].username + ") and Test("+currentTestID+") has been updated successfully!");
 											strongNode.appendChild(textNode);
 											
 											let divNode = document.createElement("div");
