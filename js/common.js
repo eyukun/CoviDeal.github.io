@@ -287,6 +287,42 @@ var tests = {
 		status: "pending",
 		id: 7,
 		kitID: 1
+	},
+	t8: {
+		testID: 8,
+		testDate: "2020-10-14",
+		result: "positive",
+		resultDate: "2020-10-21",
+		status: "complete",
+		id: 6,
+		kitID: 2
+	},
+	t9: {
+		testID: 9,
+		testDate: "2020-10-14",
+		result: "positive",
+		resultDate: "2020-10-22",
+		status: "complete",
+		id: 7,
+		kitID: 4
+	},
+	t10: {
+		testID: 10,
+		testDate: "2020-10-15",
+		result: "positive",
+		resultDate: "2020-10-22",
+		status: "complete",
+		id: 9,
+		kitID: 3
+	},
+	t11: {
+		testID: 11,
+		testDate: "2020-10-16",
+		result: "positive",
+		resultDate: "2020-10-23",
+		status: "complete",
+		id: 8,
+		kitID: 5
 	}
 	
 }
