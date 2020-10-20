@@ -148,7 +148,8 @@ var createCentre = {
 	id: 'null'
 }
 
-var createTetKit = {
+// create test kit
+var createTestKit = {
 	kitID: 'null',
 	testName: 'null',
 	availableStock: 'null',
@@ -444,7 +445,9 @@ function recordTester()
 	let formData={};
 	if (document.getElementById("errorMsg") != null){
 		document.getElementById("errorMsg").remove();
-	}
+
+  }
+
 	formData['username']=document.getElementById('username').value;
 	formData['password']=document.getElementById('password').value;
 	formData['name']=document.getElementById('name').value;
@@ -593,7 +596,6 @@ function registerCentre(){
 		let strongNode = document.createElement("strong");
 		let textNode = document.createTextNode("New test centre (" + createCentre['centreName'] + ") has been added successfully!");
 		strongNode.appendChild(textNode);
-
 		
 		let divNode = document.createElement("div");
 		divNode.setAttribute("class", "alert alert-success alert-dismissible fade show");
@@ -602,7 +604,6 @@ function registerCentre(){
 		divNode.setAttribute("id", "errorMsg");
 		
 		document.getElementById("error").appendChild(divNode);
-		
 		
 		// update the navigation details
 		let nav = document.getElementsByTagName("a");
@@ -750,10 +751,11 @@ function registerTestKit(){
 				
 				// get the income stock of the selected test kit
 				let formData = {};
-				formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
 				formData["updateTestName"] = document.getElementById("updateTestName" + createTestKit['kitID']).value;
 				formData["updateKitID"] = document.getElementById("updateKitID" + createTestKit['kitID']).value;
-				console.log(formData);
+				if (parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value) != null){
+					formData["incomeStock"] = parseInt(document.getElementById("incomeStock" + createTestKit['kitID']).value);
+				}
 				let update = false;
 				
 				// remove the message created before
