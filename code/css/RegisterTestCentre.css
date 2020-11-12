@@ -4,29 +4,20 @@ Student ID: B1900083
 **/
 
 /** Body **/
-#box, #search{
-	border: 1px solid black;
-	box-shadow: 0px 2px 0px 2px;
+.jumbotron {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../images/testcentre.png');
+	background-size: cover;
+	color: white;
+}
+
+#box{
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
 }
 
 #btn1 {
   padding: 1rem 3rem;
   border-radius: 100px;
   font-size:17px;
-}
-
-.table {
-	width: 58.75%;
-	overflow-y: scroll;
-	height: 30%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .form-group {
@@ -61,6 +52,7 @@ Student ID: B1900083
 .nav-pills .pill-5 .nav-link:not(.active) {
 	color: rgb(255, 255, 255);
 }
+
 
 /** Navigation **/
 
@@ -126,39 +118,14 @@ Student ID: B1900083
   margin-left:6px;
   margin-right:0;
   border-radius:100%;
-  background-color:#33353d;
+  background-color:#33353d
 }
-
-.social-icons .button{
-	display: flex; 
-	align-items: center; 
-	justify-content: center;
-}
-
 .copyright-text
 {
   margin:0
 }
-@media (max-width:1200px)
-{
-	.table {
-		width: 70%;
-	}
-}
-
-@media (max-width:1100px)
-{
-	.table {
-		width: 70%;
-	}
-}
-
 @media (max-width:991px)
 {
-	.table {
-		width: 95%;
-	}
-	
   .site-footer [class^=col-]
   {
     margin-bottom:30px
@@ -166,10 +133,6 @@ Student ID: B1900083
 }
 @media (max-width:767px)
 {
-	.table {
-		width: 100%;
-	}
-	
   .site-footer
   {
     padding-bottom:0
@@ -206,6 +169,13 @@ Student ID: B1900083
   -o-transition:all .2s linear;
   transition:all .2s linear
 }
+
+.social-icons .button{
+	display: flex; 
+	align-items: center; 
+	justify-content: center;
+}
+
 .social-icons a:active,.social-icons a:focus,.social-icons a:hover
 {
   color:#fff;

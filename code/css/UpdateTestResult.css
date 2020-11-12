@@ -1,41 +1,53 @@
 /**
 Student Name: Eyu Kun
 Student ID: B1900083
-Student Name: Ng Jun Zhi
-Student ID: B1802197
 **/
 
 /** Body **/
+.jumbotron {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../images/updatetest1.png');
+	background-size: cover;
+	color: white;
+}
 
-  #welcome {
-	margin-top: 385px;
+h3 {
+	font-family: Impact, Charcoal, sans-serif;
 	font-size: 50px;
-	font-family: 'Mansalva', cursive;
-	color: black;
-		}
+}
 
-  a.login{
-    display:inline-block;
-    padding:15px 30px;
-	margin: -10px 0px 35px 0px;
-    color:blue;
-    text-transform:uppercase;
-    Letter-spacing:4px;
-    text-decoration:none;
-    font-size:24px;
-    overflow: hidden;
-    transition:0.2s;
-  }
+#box {
+	text-align: center;
+}
 
-  a.login:hover{
-    color: #255784;
-    background:red;
-    box-shadow:0 0 10px orange,0 0 10px orange, 0 0 10px orange;
-  }
+#btn1 {
+  padding: 1rem 3rem;
+  border-radius: 100px;
+  font-size:17px;
+}
 
-  /** Body **/
+.table {
+	width: 100%;
+	overflow-y: scroll;
+	height: 30%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
 
-  /** Navigation **/
+td, th{
+	width: 300px;
+}
+
+
+.form-group {
+	margin-top: 18px;}
+
+.form-groupform-check{
+	margin-top: 5px;
+	margin-bottom: 30px;}
+
+
+/** Navigation **/
 
 .navbar {
 	margin-bottom: 0px;
@@ -44,6 +56,22 @@ Student ID: B1802197
 .nav-pills .pill-1 .nav-link:not(.active) {
 	color: rgb(255, 255, 255);
 }
+
+.nav-pills .pill-2 .nav-link:not(.active) {
+	color: rgb(255, 255, 255);
+}
+
+.nav-pills .pill-3 .nav-link:not(.active) {
+	color: rgb(255, 255, 255);
+}
+
+.nav-pills .pill-4 .nav-link:not(.active) {
+	color: rgb(255, 255, 255);
+}
+.nav-pills .pill-5 .nav-link:not(.active) {
+	color: rgb(255, 255, 255);
+}
+
 
 /** Navigation **/
 
@@ -63,6 +91,7 @@ Student ID: B1802197
   line-height:24px;
   color:#737373;
 }
+
 
 
 .site-footer a
@@ -108,14 +137,24 @@ Student ID: B1802197
   margin-left:6px;
   margin-right:0;
   border-radius:100%;
-  background-color:#33353d
+  background-color:#33353d;
 }
+
+.social-icons .button{
+	display: flex; 
+	align-items: center; 
+	justify-content: center;
+}
+
 .copyright-text
 {
   margin:0
 }
+
+
 @media (max-width:991px)
 {
+	
   .site-footer [class^=col-]
   {
     margin-bottom:30px
@@ -123,6 +162,7 @@ Student ID: B1802197
 }
 @media (max-width:767px)
 {
+	
   .site-footer
   {
     padding-bottom:0
@@ -142,12 +182,6 @@ Student ID: B1802197
 {
   display:inline-block;
   margin-bottom:4px
-}
-
-.social-icons .button{
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 .social-icons a{
@@ -201,12 +235,9 @@ Student ID: B1802197
     margin-right:0;
     font-weight:600
   }
- 
+  
 }
-
 /**
 Student Name: Eyu Kun
 Student ID: B1900083
-Student Name: Ng Jun Zhi
-Student ID: B1802197
 **/
