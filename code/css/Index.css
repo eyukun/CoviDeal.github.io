@@ -17,8 +17,8 @@ Student ID: B1802197
   a.login{
     display:inline-block;
     padding:15px 30px;
+	color: blue !important;
 	margin: -10px 0px 35px 0px;
-    color:blue;
     text-transform:uppercase;
     Letter-spacing:4px;
     text-decoration:none;
@@ -26,12 +26,15 @@ Student ID: B1802197
     overflow: hidden;
     transition:0.2s;
   }
+  
+  
 
   a.login:hover{
-    color: #255784;
-    background:red;
-    box-shadow:0 0 10px orange,0 0 10px orange, 0 0 10px orange;
+	color: white !important;
+    background: #58E718;
+    box-shadow:0 0 10px #58E718,0 0 10px #58E718, 0 0 10px #58E718;
   }
+  
 
   /** Body **/
 

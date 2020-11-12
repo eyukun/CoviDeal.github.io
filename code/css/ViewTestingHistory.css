@@ -1,17 +1,22 @@
 /**
-Student Name: Ng Jun Zhi
-Student ID: B1802197
+Student Name: Eyu Kun
+Student ID: B1900083
 **/
 
 /** Body **/
-#box, #search{
-	border: 1px solid black;
-	box-shadow: 0px 2px 0px 2px;
+.jumbotron {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../images/viewReport1.png');
+	background-size: cover;
+	color: white;
+}
+
+h3 {
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 50px;
+}
+
+#box {
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
 }
 
 #btn1 {
@@ -21,13 +26,18 @@ Student ID: B1802197
 }
 
 .table {
-	width: 61%;
+	width: 100%;
 	overflow-y: scroll;
-	height: 300px;
+	height: 30%;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+td, th{
+	width: 300px;
+}
+
 
 .form-group {
 	margin-top: 18px;}
@@ -61,6 +71,7 @@ Student ID: B1802197
 .nav-pills .pill-5 .nav-link:not(.active) {
 	color: rgb(255, 255, 255);
 }
+
 
 /** Navigation **/
 
@@ -139,25 +150,10 @@ Student ID: B1802197
 {
   margin:0
 }
-@media (max-width:1200px)
-{
-	.table {
-		width: 63.5%;
-	}
-}
 
-@media (max-width:1100px)
-{
-	.table {
-		width: 63.5%;
-	}
-}
 
 @media (max-width:991px)
 {
-	.table {
-		width: 85.5%;
-	}
 	
   .site-footer [class^=col-]
   {
@@ -166,9 +162,6 @@ Student ID: B1802197
 }
 @media (max-width:767px)
 {
-	.table {
-		width: 100%;
-	}
 	
   .site-footer
   {
@@ -242,8 +235,9 @@ Student ID: B1802197
     margin-right:0;
     font-weight:600
   }
+  
 }
 /**
-Student Name: Ng Jun Zhi
-Student ID: B1802197
+Student Name: Eyu Kun
+Student ID: B1900083
 **/
